@@ -1,3 +1,9 @@
+# Eclipse IDE stuff
+bin
+.classpath
+.project
+module-info.java
+
 # IntelliJ IDEA stuff
 .idea
 TCD-Algos-2021.iml
@@ -25,3 +31,4 @@ TCD-Algos-2021.iml
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+/bin/
