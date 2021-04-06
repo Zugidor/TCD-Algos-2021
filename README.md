@@ -6,7 +6,7 @@ Trinity College Dublin 2nd Year Semester 2 Data Structures and Algorithms Group 
 
 - Michael Makarenko (Zugidor)
 - Adam Bewick Mulvihill (A-Mulvihill)
--
+- Prathamesh Sai (saisankp)
 -
 
 ### See TODO.md and Progress.md
