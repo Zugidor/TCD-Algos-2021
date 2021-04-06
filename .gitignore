@@ -1,3 +1,7 @@
+# IntelliJ IDEA stuff
+.idea
+TCD-Algos-2021.iml
+
 # Compiled class file
 *.class
 
