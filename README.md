@@ -11,6 +11,6 @@ The root of this repository is IntelliJ IDEA and Eclipse IDE friendly (associate
 | Michael Makarenko     | -                           | <a href="https://github.com/zugidor">Zugidor</a>         |
 | Adam Bewick Mulvihill | -                           | <a href="https://github.com/A-Mulvihill">A-Mulvihill</a> |
 | Prathamesh Sai        | Integrated Computer Science | <a href="https://github.com/saisankp">saisankp</a>       |
-| Daniel Ilyin          | Integrated Computer Science | <a href="https://github.com/danieli1245">danieli1245</a>                                       |
+| Daniel Ilyin          | Integrated Computer Science | <a href="https://github.com/danieli1245">danieli1245</a> |
 
 ### See TODO.md and Progress.md
