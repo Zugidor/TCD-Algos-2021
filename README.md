@@ -6,9 +6,11 @@ The root of this repository is IntelliJ IDEA and Eclipse IDE friendly (associate
 
 ## Group Members
 
-- Michael Makarenko (Zugidor)
-- Adam Bewick Mulvihill (A-Mulvihill)
-- Prathamesh Sai (saisankp)
--
+|         Name          |           Course            |                      GitHub Username                     |
+| :---:                 | :-------------:             | :-:                                                      |
+| Michael Makarenko     | -                           | <a href="https://github.com/zugidor">Zugidor</a>         |
+| Adam Bewick Mulvihill | -                           | <a href="https://github.com/A-Mulvihill">A-Mulvihill</a> |
+| Prathamesh Sai        | Integrated Computer Science | <a href="https://github.com/saisankp">saisankp</a>       |
+| N/A                   | N/A                         | <a href="">N/A</a>                                       |
 
 ### See TODO.md and Progress.md
