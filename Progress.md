@@ -6,4 +6,4 @@ This markdown file contains the list of things <b>that have been completed by th
 * A discord server for the group has been made by `Zugidor`
 * An email has been sent to Dr. Ivana Dusparic (<a href="https://github.com/duspari">duspari</a>) by `Zugidor`
 * An <a href="https://opensource.org/licenses/MIT">`MIT License`</a> has been successfully added to this repository by `saisankp`
-* Some general <a href="https://github.com/Zugidor/TCD-Algos-2021/blob/main/README.md">`README.md`</a> formatting issues have been resolved. by `saisankp`
+* Some general <a href="https://github.com/Zugidor/TCD-Algos-2021/blob/main/README.md">`README.md`</a> formatting issues have been resolved by `saisankp`
