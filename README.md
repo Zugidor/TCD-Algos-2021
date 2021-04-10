@@ -7,7 +7,7 @@ The root of this repository is IntelliJ IDEA and Eclipse IDE friendly (associate
 ## Group Members
 
 |         Name          |           Course            |                      GitHub Username                     |
-| :---:                 | :-------------:             | :-:                                                      |
+|:---------------------:|:---------------------------:|:--------------------------------------------------------:|
 | Michael Makarenko     | Integrated Computer Science | <a href="https://github.com/zugidor">Zugidor</a>         |
 | Adam Bewick Mulvihill | Integrated Computer Science | <a href="https://github.com/A-Mulvihill">A-Mulvihill</a> |
 | Prathamesh Sai        | Integrated Computer Science | <a href="https://github.com/saisankp">saisankp</a>       |
