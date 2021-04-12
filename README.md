@@ -8,9 +8,9 @@ The root of this repository is IntelliJ IDEA and Eclipse IDE friendly (associate
 
 |         Name          |           Course            |                      GitHub Username                     |
 |:---------------------:|:---------------------------:|:--------------------------------------------------------:|
-| Michael Makarenko     | Integrated Computer Science | <a href="https://github.com/zugidor">Zugidor</a>         |
-| Adam Bewick Mulvihill | Integrated Computer Science | <a href="https://github.com/A-Mulvihill">A-Mulvihill</a> |
-| Prathamesh Sai        | Integrated Computer Science | <a href="https://github.com/saisankp">saisankp</a>       |
-| Daniel Ilyin          | Integrated Computer Science | <a href="https://github.com/danieli1245">danieli1245</a> |
+| Michael Makarenko     | Integrated Computer Science | [Zugidor]("https://github.com/zugidor")                  |
+| Adam Bewick Mulvihill | Integrated Computer Science | [A-Mulvihill]("https://github.com/A-Mulvihill")          |
+| Prathamesh Sai        | Integrated Computer Science | [saisankp]("https://github.com/saisankp")                |
+| Daniel Ilyin          | Integrated Computer Science | [danieli1245]("https://github.com/danieli1245")          |
 
 ### See TODO.md and Progress.md
