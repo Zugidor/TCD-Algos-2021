@@ -3,11 +3,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class stopTime {
 
@@ -116,6 +112,7 @@ public class stopTime {
         for(int i=low+1;i<=high;i++){
             key=a[i];
             k=i-1;
+            //Below we compare based on Trip ID.
             while((k>low-1) && a[k].trip_id>key.trip_id){
                 a[k+1]=a[k];
                 k--;
@@ -146,9 +143,13 @@ public class stopTime {
      * @return: void.
      */
     static void updateProgressBar(int currentValue, long totalValue) {
+        //The progress bar percentage
         double progressPercentage = (double)currentValue/(int)totalValue;
-        final int width = 65; // progress bar width in chars
+        //The progress bar width in units of chars
+        final int width = 65;
+        //We start the progress bar's text
         System.out.print("\r" + (int)(progressPercentage*100) + "% [");
+        //Now print the middle of the progress bar depending on the progress made
         int i = 0;
         for (; i <= (int)(progressPercentage*width); i++) {
             System.out.print("▓");
@@ -156,6 +157,7 @@ public class stopTime {
         for (; i < width; i++) {
             System.out.print("░");
         }
+        //Finally, print out the end of the progress bar and show the progress in terms of the current line we are at.
         System.out.print("] " + currentValue + "/" + totalValue);
     }
 
@@ -247,9 +249,9 @@ public class stopTime {
             counterForProgressBar++;
             numberOfValidEntries++;
 
-            //We only want to update the progress bar every 12,937 lines, so the function remains speedy.
-            //If we updated the progress bar after every line, this function would be incredibly slow.
-            if (counterForProgressBar % 12937 == 0) {
+            //We only want to update the progress bar for every 1% of progress, so the function remains speedy.
+            //If we updated the progress bar after every line, the I/0 required would slow down the function.
+            if (counterForProgressBar % ((int)totalNumberOfLinesInFile/100) == 0) {
                 try {
                     Thread.sleep(20);
                     updateProgressBar(counterForProgressBar, totalNumberOfLinesInFile);
@@ -302,12 +304,12 @@ public class stopTime {
 
         int previousTripID = stopTimesWithMatchingArrivalTime.get(0).trip_id;
         System.out.println("\nHere are all the trips with an arrival time of " + inputArrivalTime + ", sorted by Trip ID.\n");
-        System.out.println("************************************SEARCH-RESULTS************************************");
+        System.out.println(String.join("", Collections.nCopies(35,"*")) + " SEARCH-RESULTS " + String.join("", Collections.nCopies(35,"*")));
         for(int i = 0; i < stopTimesWithMatchingArrivalTime.size(); i++) {
             if(i != 0) {
-                System.out.println("**************************************************************************************");
+                System.out.println(String.join("", Collections.nCopies(86,"*")));
             }
-            System.out.println("                                   Matching trip #" + (i+1));
+            System.out.println(String.join("", Collections.nCopies(35," ")) + "Matching trip #" + (i+1));
             System.out.println("[X] Trip ID: " + stopTimesWithMatchingArrivalTime.get(i).trip_id);
             if(previousTripID > stopTimesWithMatchingArrivalTime.get(i).trip_id) {
                 System.out.println("An error has occurred with the sorting of Trip ID's.");
@@ -322,6 +324,6 @@ public class stopTime {
             System.out.println("[X] Drop Off Type: " + stopTimesWithMatchingArrivalTime.get(i).drop_off_type);
             System.out.println("[X] Shape Distance Travelled: " + stopTimesWithMatchingArrivalTime.get(i).shape_dist_travelled);
         }
-        System.out.println("**************************************************************************************");
+        System.out.println(String.join("", Collections.nCopies(86,"*")));
     }
 }
