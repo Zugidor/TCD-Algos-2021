@@ -8,10 +8,20 @@ This markdown file contains the list of things **that have been completed by the
 
 - A discord server for the group has been made by `Zugidor`
 
-- An email has been sent to Dr. Ivana Dusparic [duspari]("https://github.com/duspari") by `Zugidor`
+- An email has been sent to Dr. Ivana Dusparic by `Zugidor`
 
 - An [MIT License]("https://opensource.org/licenses/MIT") has been successfully added to this repository by `saisankp`
 
 - Some general [README.md]("https://github.com/Zugidor/TCD-Algos-2021/blob/main/README.md") formatting issues have been resolved by `saisankp`
 
 - In-line HTML replaced with pure Markdown formatting in all three .md files by `Zugidor`
+
+## Academic Calendar Week 33
+
+- The development of the application has commenced.
+
+- As a group we have discussed the design decisions we are going to make for each part of the project.
+
+- Part 3 of the project has been successfully completed by `saisankp` and currently is fully functional.
+
+- Elements of part 4 of the project has been completed by `saisankp` to merge both the user interface with the functionality of part 3.
