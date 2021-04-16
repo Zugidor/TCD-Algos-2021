@@ -1,6 +1,8 @@
 # Progress
 
-This markdown file contains the list of things **that have been completed by the group,** and it will be **updated weeky.** This means it will contain a list of things that have been ticked off in the file ***[TODO.md][TODO]***. The weeks mentioned in this file are based on ***[Trinity College Dublin's Academic Year Calendar 2020/2021][AcademicCalendar]***
+This markdown file contains the list of things **that have been completed by the group,** and it will be **updated weeky.** This means it will contain a list of things that have been ticked off in the file ***[TODO.md][TODO]***. The weeks mentioned in this file are based on ***[Trinity College Dublin's Academic Year Calendar 2020/2021][AcademicCalendar]***. You can view the history of this file over the semester by clicking the icon below.
+
+<a href="https://github.com/Zugidor/TCD-Algos-2021/commits/main/Progress.md"><p align="center" width="100%"><img width="33%" src="https://i.imgur.com/5SMSN5n.png"></p></a>
 
 ## Academic Calendar Week 32
 
