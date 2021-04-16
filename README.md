@@ -12,7 +12,7 @@ This is our **Algorithms and Data Structures II Group Project 2020/21**, impleme
 
 ## Group Housekeeping
 
-On a weekly basis, we update the files <a href="https://github.com/Zugidor/TCD-Algos-2021/blob/main/TODO.md">`TODO.md`</a> and <a href="https://github.com/Zugidor/TCD-Algos-2021/blob/main/Progress.md">`Progress.md`</a> to keep track of the work we need to do, and to also keep track of who did what. We use a discord server to communicate, and we 
+On a weekly basis, we update the files <a href="https://github.com/Zugidor/TCD-Algos-2021/blob/main/TODO.md">`TODO.md`</a> and <a href="https://github.com/Zugidor/TCD-Algos-2021/blob/main/Progress.md">`Progress.md`</a> to keep track of the work we need to do, and to also keep track of who did what. For communication, we have a group discord server to discuss the project with each other.
 
 [Zugidor]: https://github.com/zugidor
 [A-Mulvihill]: https://github.com/A-Mulvihill
