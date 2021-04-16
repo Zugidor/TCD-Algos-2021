@@ -124,17 +124,6 @@ public class stopTime {
         }
     }
 
-
-
-    public static void main(String[] args) throws IOException {;
-        Map<String, List<stopTime>> mapForStopTimes = generateHashMapOfStopTimes("files/stop_times.txt");
-        findListOfTripsWithGivenArrivalTime("05:33:39",mapForStopTimes);
-
-
-
-    }
-
-
     /*-------------PROGRESS BAR HELPER METHODS------------------------------------------------------------------------------------------------------------------------------------------------------------*/
     /*
      * Returns the number of lines in a file, with the path to the file.

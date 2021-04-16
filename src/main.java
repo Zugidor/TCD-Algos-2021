@@ -1,15 +1,18 @@
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
 public class main {
 
+    public static final String mainTitle = "\uD835\uDD4D\uD835\uDD52\uD835\uDD5F\uD835\uDD54\uD835\uDD60\uD835\uDD66\uD835\uDD67\uD835\uDD56\uD835\uDD63 \uD835\uDD39\uD835\uDD66\uD835\uDD64 \uD835\uDD44\uD835\uDD52\uD835\uDD5F\uD835\uDD52\uD835\uDD58\uD835\uDD56\uD835\uDD5E\uD835\uDD56\uD835\uDD5F\uD835\uDD65 \uD835\uDD4A\uD835\uDD6A\uD835\uDD64\uD835\uDD65\uD835\uDD56\uD835\uDD5E";
+
     public static void main(String[] args) throws IOException {
-        //Print out title message.
-        System.out.println("**************************************************************************************");
-        System.out.println("                            \uD835\uDD4D\uD835\uDD52\uD835\uDD5F\uD835\uDD54\uD835\uDD60\uD835\uDD66\uD835\uDD67\uD835\uDD56\uD835\uDD63 \uD835\uDD39\uD835\uDD66\uD835\uDD64 \uD835\uDD44\uD835\uDD52\uD835\uDD5F\uD835\uDD52\uD835\uDD58\uD835\uDD56\uD835\uDD5E\uD835\uDD56\uD835\uDD5F\uD835\uDD65 \uD835\uDD4A\uD835\uDD6A\uD835\uDD64\uD835\uDD65\uD835\uDD56\uD835\uDD5E");
-        System.out.println("**************************************************************************************");
+        //Print out the title with the title text and a banner.
+        System.out.println(String.join("", Collections.nCopies(86,"*")));
+        System.out.println("                           " + mainTitle);
+        System.out.println(String.join("", Collections.nCopies(86,"*")));
         System.out.println("             This system provides 4 unique user queries at your disposal. \n            Simply enter any query number from the table of queries below.");
         System.out.println(
                 "+-------+----------------------------------------------------------------------------+\n" +
