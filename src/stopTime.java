@@ -152,10 +152,10 @@ public class stopTime {
         //Now print the middle of the progress bar depending on the progress made
         int i = 0;
         for (; i <= (int)(progressPercentage*width); i++) {
-            System.out.print("▓");
+            System.out.print("/");
         }
         for (; i < width; i++) {
-            System.out.print("░");
+            System.out.print(" ");
         }
         //Finally, print out the end of the progress bar and show the progress in terms of the current line we are at.
         System.out.print("] " + currentValue + "/" + totalValue);
