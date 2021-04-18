@@ -28,5 +28,7 @@ This markdown file contains the list of things **that have been completed by the
 
 - Elements of part 4 of the project has been completed by `saisankp` to merge both the user interface with the functionality of part 3.
 
+- Hence, the application is currently looking like <a href="https://youtu.be/TKKlxEImqRU">this</a>.
+
 [AcademicCalendar]: https://www.tcd.ie/calendar/academic-year-structure/academic-year-structure.pdf
 [TODO]: https://github.com/Zugidor/TCD-Algos-2021/blob/main/TODO.md
