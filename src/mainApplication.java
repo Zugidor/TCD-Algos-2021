@@ -15,14 +15,14 @@ public class mainApplication {
     		"          \\___/ \\__,_|_| |_|\\___\\___/ \\__,_| \\_/ \\___|_|    \\____/ \\__,_|___/";
 
     public static final String secondTitle = 
-    		"	     ___  ___                                                  _   \r\n" +
-    		"	     |  \\/  |                                                 | |  \r\n" +
-    		"	     | .  . | __ _ _ __   __ _  __ _  ___ _ __ ___   ___ _ __ | |_ \r\n" +
-    		"	     | |\\/| |/ _` | '_ \\ / _` |/ _` |/ _ \\ '_ ` _ \\ / _ \\ '_ \\| __|\r\n" +
-    		"	     | |  | | (_| | | | | (_| | (_| |  __/ | | | | |  __/ | | | |_ \r\n" +
-    		"	     \\_|  |_/\\__,_|_| |_|\\__,_|\\__, |\\___|_| |_| |_|\\___|_| |_|\\__|\r\n" +
-    		"	                                __/ |                              \r\n" +
-    		"	                               |___/                               " +
+    		"	        ___  ___                                                  _   \r\n" +
+    		"	        |  \\/  |                                                 | |  \r\n" +
+    		"	        | .  . | __ _ _ __   __ _  __ _  ___ _ __ ___   ___ _ __ | |_ \r\n" +
+    		"	        | |\\/| |/ _` | '_ \\ / _` |/ _` |/ _ \\ '_ ` _ \\ / _ \\ '_ \\| __|\r\n" +
+    		"	        | |  | | (_| | | | | (_| | (_| |  __/ | | | | |  __/ | | | |_ \r\n" +
+    		"	        \\_|  |_/\\__,_|_| |_|\\__,_|\\__, |\\___|_| |_| |_|\\___|_| |_|\\__|\r\n" +
+    		"	                                   __/ |                              \r\n" +
+    		"	                                  |___/                               " +
     		"	                                                              \r\n";
     
     public static final String queryTable = "+-------+----------------------------------------------------------------------------+\n" +
@@ -47,9 +47,15 @@ public class mainApplication {
         System.out.println(queryTable);
         Scanner scanner = new Scanner(System.in);
         boolean runApp = true;
+        boolean validQuery = false;
         while(runApp){
-            System.out.print("\nQuery: ");
-            int requestedQuery = scanner.nextInt();
+            System.out.print("\nEnter your query: ");
+            String userInput = scanner.next();
+            validQuery = isValidQuery(userInput);
+            int requestedQuery = 0;
+            if(validQuery){
+                requestedQuery = Integer.parseInt(userInput);
+            }
             if(requestedQuery == 1){
                 System.out.println("Sorry, this feature is still being developed.");
             }
@@ -58,7 +64,7 @@ public class mainApplication {
             }
             else if(requestedQuery == 3){
                 boolean runUserQuery3 = true;
-                Map<String, List<stopTime>> stopTimes = stopTime.generateHashMapOfStopTimes("files/stop_times.txt");
+                Map<String, List<stopTime>> stopTimes = stopTime.generateHashMapOfStopTimes("input/stop_times.txt");
                 while(runUserQuery3) {
                     System.out.print("Input an arrival time in the format 'hh:mm:ss': ");
                     String userArrivalTimeInput = scanner.next();
@@ -89,5 +95,14 @@ public class mainApplication {
             }
         }
         scanner.close();
+    }
+
+    public static boolean isValidQuery(String s) {
+        try {
+            Integer.parseInt(s);
+            return true;
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
     }
 }
