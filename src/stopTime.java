@@ -303,7 +303,7 @@ public class stopTime {
         stopTimesWithMatchingArrivalTime = Arrays.asList(sorted);
 
         int previousTripID = stopTimesWithMatchingArrivalTime.get(0).trip_id;
-        System.out.println("\nHere are all the trips with an arrival time of " + inputArrivalTime + ", sorted by Trip ID.\n");
+        System.out.println("\n" + String.join("", Collections.nCopies(6," ")) + "Here are all the trips with an arrival time of " + inputArrivalTime + " sorted by Trip ID." + String.join("", Collections.nCopies(6," ")) + "\n");
         System.out.println(String.join("", Collections.nCopies(35,"*")) + " SEARCH-RESULTS " + String.join("", Collections.nCopies(35,"*")));
         for(int i = 0; i < stopTimesWithMatchingArrivalTime.size(); i++) {
             if(i != 0) {
