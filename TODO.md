@@ -35,6 +35,15 @@ criteria sorted by Trip ID.
 
 - [x] Start Part 4 of the project, so that there is a user interface to make queries for every feature we implement.
 
+## Academic Calendar Week 34
+
+- [ ] Start to write the design document.
+
+- [ ] Start finishing all parts of the assignment.
+
+- [ ] Decide how we are going to record the demo video for the project.
+
+
 
 [Progress.MD]: https://github.com/Zugidor/TCD-Algos-2021/blob/main/Progress.md
 [AcademicCalendar]: https://www.tcd.ie/calendar/academic-year-structure/academic-year-structure.pdf
