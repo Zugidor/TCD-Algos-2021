@@ -1,6 +1,6 @@
 # TODO
 
-This markdown file contains the list of things **that need to be done by the group,** and it will be **updated weeky.** A tick beside an item means it has been successfully completed, and also has been copied to the markdown file ***[Progress.md][Progress.MD]***. The weeks mentioned in this file are based on ***[Trinity College Dublin's Academic Year Calendar 2020/2021][AcademicCalendar]***. You can view the history of this file over the semester by clicking the icon below.
+This markdown file contains the list of things **that need to be done by the group,** and it will be **updated weeky.** A tick beside an item means it has been successfully completed, and also has been copied to the markdown file ***[Progress.md.][Progress.MD]*** The weeks mentioned in this file are based on ***[Trinity College Dublin's Academic Year Calendar 2020/2021.][AcademicCalendar]*** You can view the history of this file over the semester by clicking the icon below.
 
 <a href="https://github.com/Zugidor/TCD-Algos-2021/commits/main/TODO.md"><p align="center" width="100%"><img width="13%" src="https://i.imgur.com/5SMSN5n.png"></p></a>
 
@@ -37,13 +37,19 @@ criteria sorted by Trip ID.
 
 ## Academic Calendar Week 34
 
-- [ ] Start to write the design document.
+- [x] Start to write the design document.
 
-- [ ] Start finishing all parts of the assignment.
+- [x] Start finishing all parts of the assignment.
 
-- [ ] Decide how we are going to record the demo video for the project.
+- [x] Decide how we are going to record the demo video for the project.
 
+## Academic Calendar Week 35
 
+- [ ] Finish all parts of the assignment.
+- [ ] Finish the design document.
+- [ ] Record the demo video.
+- [ ] Record summaries of individual contributions in Readme.txt
+- [ ] Fill and submit the Submission.zip file on Blackboard.
 
 [Progress.MD]: https://github.com/Zugidor/TCD-Algos-2021/blob/main/Progress.md
 [AcademicCalendar]: https://www.tcd.ie/calendar/academic-year-structure/academic-year-structure.pdf

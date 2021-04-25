@@ -28,17 +28,21 @@ This markdown file contains the list of things **that have been completed by the
 
 - Elements of part 4 of the project has been completed by `saisankp` to merge both the user interface with the functionality of part 3.
 
-- Hence, the application is currently looking like <a href="https://youtu.be/TKKlxEImqRU">this</a>.
+- Hence, the application is currently looking like [this]("https://youtu.be/TKKlxEImqRU").
 
 ## Academic Calendar Week 34
 
 - The design document structure has been made by `saisankp` on Google Docs and we will have it completed by Friday.
 
-- The .gitignore file has been updated and a text file containing information about the project has been made by `Zugidor`.
+- The .gitignore file has been updated and the Readme.txt deliverable has been made by `Zugidor`.
 
-- The remaining parts of the assignment will be finished soon.
+- Part 3 and Part 4 of the project have been improved by `Zugidor`, Part 3 is now more optimised and Part 4 has additional error handling.
 
-- We will have the demo video completed sometime during this week.
+- We decided on how we are going to record our demo video for the project.
+
+- Application development is progressing smoothly.
+
+## Academic Calendar Week 35
 
 [AcademicCalendar]: https://www.tcd.ie/calendar/academic-year-structure/academic-year-structure.pdf
 [TODO]: https://github.com/Zugidor/TCD-Algos-2021/blob/main/TODO.md
