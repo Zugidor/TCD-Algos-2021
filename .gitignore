@@ -8,6 +8,9 @@ module-info.java
 .idea
 TCD-Algos-2021.iml
 
+# VS Code stuff
+.vscode
+
 # Compiled class file
 *.class
 
@@ -25,7 +28,6 @@ TCD-Algos-2021.iml
 *.war
 *.nar
 *.ear
-*.zip
 *.tar.gz
 *.rar
 
