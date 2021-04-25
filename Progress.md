@@ -30,5 +30,15 @@ This markdown file contains the list of things **that have been completed by the
 
 - Hence, the application is currently looking like <a href="https://youtu.be/TKKlxEImqRU">this</a>.
 
+## Academic Calendar Week 34
+
+- The design document structure has been made by `saisankp` on Google Docs and we will have it completed by Friday.
+
+- The .gitignore file has been updated and a text file containing information about the project has been made by `Zugidor`.
+
+- The remaining parts of the assignment will be finished soon.
+
+- We will have the demo video completed sometime during this week.
+
 [AcademicCalendar]: https://www.tcd.ie/calendar/academic-year-structure/academic-year-structure.pdf
 [TODO]: https://github.com/Zugidor/TCD-Algos-2021/blob/main/TODO.md
