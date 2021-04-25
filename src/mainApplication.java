@@ -93,10 +93,12 @@ public class mainApplication
                                 {
                                     innerQuery = false;
                                     runUserQuery3 = false;
-                                } else if (userReply.equalsIgnoreCase("Y"))
+                                }
+                                else if (userReply.equalsIgnoreCase("Y"))
                                 {
                                     innerQuery = false;
-                                } else
+                                }
+                                else
                                 {
                                     System.out.println("Please provide a valid answer.");
                                 }
