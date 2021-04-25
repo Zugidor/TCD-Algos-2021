@@ -255,23 +255,15 @@ public class stopTime {
             //We only want to update the progress bar for every 1% of progress, so the function remains speedy.
             //If we updated the progress bar after every line, the I/0 required would slow down the function.
             if (counterForProgressBar % ((int)totalNumberOfLinesInFile/100) == 0) {
-                //try {
-                    //Thread.sleep(20);
-                //TODO: This Thread.sleep() in a loop may cause slowdowns or deadlocks. Code runs well without it, consider removing.
                     updateProgressBar(counterForProgressBar, totalNumberOfLinesInFile);
-                //} catch (InterruptedException e) {}
             }
         }
 
         //Once we have successfully read all lines in the file, we have to update the progress bar to represent this.
-        //try {
-            //Thread.sleep(20);
-        //TODO: This Thread.sleep() isn't in a loop so it's fine, but code runs well without it so may be unnecessary, consider removing.
-            updateProgressBar((int)totalNumberOfLinesInFile, totalNumberOfLinesInFile);
-        //} catch (InterruptedException e) {}
+        updateProgressBar((int)totalNumberOfLinesInFile, totalNumberOfLinesInFile);
 
         //Now we can print some general statistics about the data we have just analyzed.
-        System.out.println("\nEntries from stop_files.txt have been succesfully analyzed.");
+        System.out.println("\nEntries from stop_files.txt have been successfully analyzed.");
         System.out.println("There were " + (counterForProgressBar) + " entries with " + (numberOfValidEntries) + " valid entries and " +  (totalNumberOfLinesInFile-numberOfValidEntries) + " invalid entries which have been discarded.");
 
         //At this point, we have successfully read all the lines in the file, and we can close the BufferedReader.
