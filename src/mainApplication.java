@@ -54,7 +54,7 @@ public class mainApplication
         boolean runApp = true;
         boolean query3RunPrev = false;
         Map<String, List<stopTime>> stopTimes = null;
-        
+
         while(runApp)
         {
             System.out.println(queryTable);
@@ -67,8 +67,11 @@ public class mainApplication
                     System.out.println("Sorry, this feature is still being developed.\n");
                     break;
                 case "2":
-                    System.out.println("Sorry, this feature is still being developed.\n");
+                     new stopName("input/stops.txt");
+                    //System.out.println("Sorry, this feature is still being developed.\n");
+
                     break;
+
                 case "3":
                     boolean runUserQuery3 = true;
                     if (!query3RunPrev)
