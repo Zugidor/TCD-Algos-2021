@@ -5,7 +5,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-public class stopTime {
+public class stopTime implements Comparable {
 
     //Variables which we need to declare an object of stopTime.
     protected String arrival_time;
@@ -29,98 +29,6 @@ public class stopTime {
         this.pickup_type = pickup_type;
         this.drop_off_type = drop_off_type;
         this.shape_dist_travelled = shape_dist_travelled;
-    }
-
-
-    /*-------------HELPER SORTING ALGORITHMS--------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-
-    //This is the threshold for switching to insertion sort from merge-sort.
-    static final int THRESHOLD = 10;
-
-    /**
-     * Sorts an array of doubles using a recursive implementation of Merge Sort (Top-Down merge sort).
-     * @param: An unsorted array of stopTime objects.
-     * @return: stopTime array sorted in ascending order in relation to each stopTime object's Trip ID.
-     */
-    protected static stopTime[] mergeSort(stopTime[] a) {
-        //if the input is null or has a length less than or equal to 1, there is no point sorting anything! (already sorted)
-        if (a == null || a.length <= 1) {
-            return a;
-        }
-
-        //Otherwise, let's start sorting!
-        stopTime[] auxiliary = new stopTime[a.length];
-        //Kick off recursion by passing in 0 and array length-1 as indices (i.e. the full original array)
-        mergeSort(a, auxiliary, 0, a.length - 1);
-        return a;
-    }
-
-    /**
-     * Private helper method for mergeSort(sortTime[] a)
-     * It automatically uses insertionSort(a, low, high) depending on a cutoff threshold.
-     * @param: An array of stopTime objects, an auxiliary array of stopTime objects, a low value, and a high value.
-     * @return: void.
-     */
-    private static void mergeSort(stopTime[] a, stopTime[] aux, int low, int high) {
-        if (high - low <= THRESHOLD) {
-            insertionSort(a, low, high);
-            return;
-        }
-        int mid = low + (high - low) / 2;
-        mergeSort(a, aux, low, mid);
-        mergeSort(a, aux, mid + 1, high);
-        merge(a, aux, low, mid, high);
-    }
-
-    /**
-     * Private helper method for mergeSort(stopTime[] a, stopTime[] aux, int low, int high) to merge elements.
-     * @param: An array of stopTime objects, an auxiliary array of stopTime objects, a low value, and a high value.
-     * @return: void.
-     */
-    private static void merge(stopTime[] a, stopTime[] aux, int lo, int mid, int hi) {
-        //Copy Array into auxiliary array.
-        if (hi + 1 - lo >= 0) {
-            System.arraycopy(a, lo, aux, lo, hi + 1 - lo);
-        }
-
-        //Merge elements back into original, but sort them!
-        int i = lo;
-        int j = mid + 1;
-        for (int k = lo; k <= hi; k++) {
-            if (i > mid) {
-                a[k] = aux[j++];
-            }
-            else if (j > hi) {
-                a[k] = aux[i++];
-            }
-            //Below we compare based on Trip ID.
-            else if (a[j].trip_id < aux[i].trip_id) {
-                a[k] = aux[j++];
-            }
-            else {
-                a[k] = aux[i++];
-            }
-        }
-    }
-
-    /**
-     * Private helper method for mergeSort(stopTime[] a, stopTime[] aux, int low, int high) which is used when the input array is less than the cut-off threshold.
-     * @param: An array of stopTime objects, a low value, and a high value.
-     * @return: void.
-     */
-    private static void insertionSort(stopTime[] a,int low,int high){
-        stopTime key;
-        int k;
-        for (int i = low+1; i <= high; i++) {
-            key = a[i];
-            k = i-1;
-            //Below we compare based on Trip ID.
-            while ((k > low-1) && a[k].trip_id > key.trip_id) {
-                a[k+1] = a[k];
-                k--;
-            }
-            a[k+1] = key;
-        }
     }
 
     /*-------------PROGRESS BAR HELPER METHODS------------------------------------------------------------------------------------------------------------------------------------------------------------*/
@@ -291,11 +199,11 @@ public class stopTime {
 
         //Otherwise, we have to start sorting the list of sortTime objects by their Trip ID.
         //We can convert the List to an array for simplicity.
-        stopTime[] toSort =  stopTimesWithMatchingArrivalTime.toArray(new stopTime[0]);
-        //Now we can sort the array of stopTime objects by their Trip ID with our improved merge-sort function.
-        stopTime[] sorted = mergeSort(toSort);
+        stopTime[] sort = stopTimesWithMatchingArrivalTime.toArray(new stopTime[0]);
+        //Now we can sort the array of stopTime objects by their Trip ID (thanks to the overridden compareTo() with the included, sophisticated Arrays.sort()
+        Arrays.sort(sort);
         //Convert the sorted array of sortTime objects back to a list.
-        stopTimesWithMatchingArrivalTime = Arrays.asList(sorted);
+        stopTimesWithMatchingArrivalTime = Arrays.asList(sort);
 
         int previousTripID = stopTimesWithMatchingArrivalTime.get(0).trip_id;
         System.out.println("\n" + String.join("", Collections.nCopies(6," ")) + "Here are all the trips with an arrival time of " + inputArrivalTime + " sorted by Trip ID." + String.join("", Collections.nCopies(6," ")) + "\n");
@@ -320,5 +228,23 @@ public class stopTime {
             System.out.println("[X] Shape Distance Travelled: " + stopTimesWithMatchingArrivalTime.get(i).shape_dist_travelled);
         }
         System.out.println(String.join("", Collections.nCopies(86,"*")));
+    }
+    
+    /**
+     * overrides default CompareTo() to allow sorting by trip_id in Arrays.sort()
+     */
+    @Override
+    public int compareTo(Object o)
+    {
+        stopTime a = (stopTime) o;
+        if (this.trip_id > a.trip_id) {
+            return 1;
+        }
+        else if (this.trip_id < a.trip_id) {
+            return -1;
+        }
+        else {
+            return 0;
+        }
     }
 }
