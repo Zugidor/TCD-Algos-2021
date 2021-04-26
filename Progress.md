@@ -12,11 +12,21 @@ This markdown file contains the list of things **that have been completed by the
 
 - An email has been sent to Dr. Ivana Dusparic by `Zugidor`
 
-- An [MIT License]("https://opensource.org/licenses/MIT") has been successfully added to this repository by `saisankp`
+- An [MIT License][MIT] has been successfully added to this repository by `saisankp`
 
-- Some general [README.md]("https://github.com/Zugidor/TCD-Algos-2021/blob/main/README.md") formatting issues have been resolved by `saisankp`
+- Some general [README.md][README] formatting issues have been resolved by `saisankp`
 
 - In-line HTML replaced with pure Markdown formatting in all three .md files by `Zugidor`
+
+- The distribution of the workload has been decided, with different parts of the project being given to different members of the team, as shown below.
+
+  1\. To be done by `A-Mulvihill`
+  
+  2\. To be done by `danieli1245`
+  
+  3\. To be done by `saisankp`
+  
+  4\. To be done by `Zugidor` (also helping with general issues with parts 1-3)
 
 ## Academic Calendar Week 33
 
@@ -28,7 +38,7 @@ This markdown file contains the list of things **that have been completed by the
 
 - Elements of part 4 of the project has been completed by `saisankp` to merge both the user interface with the functionality of part 3.
 
-- Hence, the application is currently looking like [this]("https://youtu.be/TKKlxEImqRU").
+- Hence, the application is currently looking like ***[this][ProgressVideo]***
 
 ## Academic Calendar Week 34
 
@@ -46,3 +56,6 @@ This markdown file contains the list of things **that have been completed by the
 
 [AcademicCalendar]: https://www.tcd.ie/calendar/academic-year-structure/academic-year-structure.pdf
 [TODO]: https://github.com/Zugidor/TCD-Algos-2021/blob/main/TODO.md
+[MIT]: https://opensource.org/licenses/MIT
+[README]: https://github.com/Zugidor/TCD-Algos-2021/blob/main/README.md
+[ProgressVideo]: https://youtu.be/TKKlxEImqRU
