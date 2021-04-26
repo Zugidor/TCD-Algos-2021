@@ -10,15 +10,15 @@ This markdown file contains the list of things **that need to be done by the gro
 
 - [x] Set up a method of communication for the group (Group discord server).
 
-- [x] Send an email to Dr. Ivana Dusparic [duspari]("https://github.com/duspari") containing:
+- [x] Send an email to Dr. Ivana Dusparic [duspari][duspari] containing:
 
   1\. The names and ID's of the people in our group.
 
   2\. The link to this repository.
 
-- [x] Add an [MIT License]("https://opensource.org/licenses/MIT") to this repository.
+- [x] Add an [MIT License][MIT-License] to this repository.
 
-- [x] Fix some general [README.md]("https://github.com/Zugidor/TCD-Algos-2021/blob/main/README.md") formatting issues.
+- [x] Fix some general [README.md][README.md] formatting issues.
 
 - [x] Convert in-line HTML to Markdown formatting in all three .md files.
 
@@ -53,3 +53,6 @@ criteria sorted by Trip ID.
 
 [Progress.MD]: https://github.com/Zugidor/TCD-Algos-2021/blob/main/Progress.md
 [AcademicCalendar]: https://www.tcd.ie/calendar/academic-year-structure/academic-year-structure.pdf
+[MIT-License]: https://opensource.org/licenses/MIT
+[README.md]: https://github.com/Zugidor/TCD-Algos-2021/blob/main/README.md
+[duspari]: https://github.com/duspari
