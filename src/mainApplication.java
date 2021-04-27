@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class mainApplication
 {
-
+    //We have constant string values which will be shown as the program starts up.
     public static final String firstTitle =
     		"          _   _                                             ______           \r\n" +
     		"         | | | |                                            | ___ \\          \r\n" +
