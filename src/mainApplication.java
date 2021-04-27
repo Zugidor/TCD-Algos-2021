@@ -58,24 +58,23 @@ public class mainApplication
         //After query 3 is requested once, we store the Map with stopTime objects to speed up future requests for it.
         Map<String, List<stopTime>> stopTimes = null;
 
+        //Main application runtime loop
         while(runApp)
         {
             //Print out the query table at the start, and also after every time query 1-3 is completed.
             System.out.println(queryTable);
             System.out.print("\nEnter your query: ");
             String userInput = scanner.next();
-            
+            //User query response
             switch (userInput)
             {
                 case "1":
                     System.out.println("Sorry, this feature is still being developed.\n");
-                    break;
+                break;
                 case "2":
-                     new stopName("input/stops.txt");
-                    //System.out.println("Sorry, this feature is still being developed.\n");
-
-                    break;
-
+                    new stopName("input/stops.txt");
+                    System.out.println("Note: This feature is currently unfinished.\n");
+                break;
                 case "3":
                     boolean runUserQuery3 = true;
                     //We only want to generate our Map once.
@@ -124,39 +123,40 @@ public class mainApplication
                             System.out.println("Please enter a valid time.");
                         }
                     }
-                    break;
+                break;
                 case "4":
                     //Final farewell message before the application finishes.
                     System.out.println("\nThank you for using the Vancouver Bus Management System.");
                     runApp = false;
-                    break;
+                break;
                 default:
                     //If any other input is given, that means the user has inputted an invalid response.
                     System.out.println("Please enter a valid query number.\n");
-                    break;
+                break;
             }
         }
         scanner.close();
     }
 
-    /*
+    /**
      * Verifies if a given string is in a valid time format for part 3 of the project.
      * @param: A string representing the input we want to verify.
      * @return: A boolean representing whether the input is in a valid time format or not.
      */
     static private boolean validTimeFormat(String s)
     {
-        //The input cannot be null or less than 8 characters and be valid.
+        //The input must be exactly 8 characters long
         if (s == null || s.length() != 8)
         {
             return false;
         }
+        //Validate time format
         if (s.charAt(2) == ':' && s.charAt(5) == ':')
         {
             String hh = s.substring(0, 2);
             String mm = s.substring(3, 5);
             String ss = s.substring(6, 8);
-            int hours = -1, minutes = -1, seconds = -1;
+            int hours, minutes, seconds;
             try
             {
                 hours = Integer.parseInt(hh);
