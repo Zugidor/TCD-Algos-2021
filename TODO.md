@@ -46,9 +46,13 @@ criteria sorted by Trip ID.
 ## Academic Calendar Week 35
 
 - [ ] Finish all parts of the assignment.
+
 - [ ] Finish the design document.
+
 - [ ] Record the demo video.
+
 - [ ] Record summaries of individual contributions in Readme.txt
+
 - [ ] Fill and submit the Submission.zip file on Blackboard.
 
 [Progress.MD]: https://github.com/Zugidor/TCD-Algos-2021/blob/main/Progress.md

@@ -1,9 +1,12 @@
 import java.io.IOException;
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 
 public class mainApplication
 {
-
+    //We have constant string values which will be shown as the program starts up.
     public static final String firstTitle =
     		"          _   _                                             ______           \r\n" +
     		"         | | | |                                            | ___ \\          \r\n" +
@@ -22,7 +25,7 @@ public class mainApplication
     		"	                                   __/ |                              \r\n" +
     		"	                                  |___/                               " +
     		"	                                                              \r\n";
-    
+    //This string will act as a table showing all the possible queries to the user.
     public static final String queryTable =
             "+-------+----------------------------------------------------------------------------+\n" +
             "| Query |                                  Action                                    |\n" +
@@ -35,9 +38,10 @@ public class mainApplication
             "+-------+----------------------------------------------------------------------------+\n" +
             "|   4   | Exit the program.                                                          |\n" +
             "+-------+----------------------------------------------------------------------------+";
+
     public static void main(String[] args) throws IOException
     {
-        // Print out the title with the title text and a banner.
+        //Print out the the main title with a description which is shown upon startup of the application.
         System.out.println(String.join("", Collections.nCopies(86,"*")));
         System.out.println(firstTitle);
         System.out.println(secondTitle);
@@ -46,16 +50,17 @@ public class mainApplication
                 + "This system provides 4 unique user queries at your disposal.");
         System.out.println(String.join("", Collections.nCopies(12, " "))
                 + "Simply enter any query number from the table of queries below.");
-        
+
+        //Now we can take user input from the user with a scanner.
         Scanner scanner = new Scanner(System.in);
         boolean runApp = true;
-        boolean query1RunPrev = false;
         boolean query3RunPrev = false;
-        FloydWarshallMap stopMap = null;
+        //After query 3 is requested once, we store the Map with stopTime objects to speed up future requests for it.
         Map<String, List<stopTime>> stopTimes = null;
 
         while(runApp)
         {
+            //Print out the query table at the start, and also after every time query 1-3 is completed.
             System.out.println(queryTable);
             System.out.print("\nEnter your query: ");
             String userInput = scanner.next();
@@ -64,57 +69,6 @@ public class mainApplication
             {
                 case "1":
                     System.out.println("Sorry, this feature is still being developed.\n");
-                    /*
-                    boolean query1Running = true;
-                    if(!query1RunPrev)
-                    {
-                        stopMap = new FloydWarshallMap("input/stops.txt", "input/stop_times.txt", "input/transfers.txt");
-                        query1RunPrev = true;
-                    }
-                    while(query1Running)
-                    {
-
-                        System.out.print("\nInput the first stop ID: ");
-                        String fromIDString = scanner.next();
-                        System.out.print("\nInput the second stop ID: ");
-                        String toIDString = scanner.next();
-                        try
-                        {
-                            int fromID = Integer.parseInt(fromIDString);
-                            int toID = Integer.parseInt(toIDString);
-                            double cost = stopMap.getCost(fromID, toID);
-                            ArrayList<String> stops = stopMap.getStops(fromID, toID);
-                            if(cost != -1 && stops != null)
-                            {
-                                System.out.println("With a cost of " + cost + ", the shortest route between these two stops is:");
-                                for(int i = 0; i < stops.size(); i++)
-                                    System.out.println(stops.get(i));
-                                // TODO This includes the starting stop and destination, may need to be removed
-                            }
-                            else
-                            {
-                                System.out.println("Stop IDs do not exist or no route exists between these two stops.");
-                            }
-                        }
-                        catch (Exception e)
-                        {
-                            System.out.println("Invalid ID input.");
-                        }
-                        boolean providedAnswer = false;
-                        while(!providedAnswer)
-                        {
-                            System.out.print("\nWould you like to search for another route? [Y/N]: ");
-                            String input = scanner.next();
-                            if(input.equalsIgnoreCase("N"))
-                            {
-                                providedAnswer = true;
-                                query1Running = false;
-                            }
-                            else if(input.equalsIgnoreCase("Y")) providedAnswer = true;
-                            else System.out.println("Please provide a valid answer by typing \"Y\" or \"N\".");
-                        }
-                    }
-                     */
                     break;
                 case "2":
                      new stopName("input/stops.txt");
@@ -124,8 +78,10 @@ public class mainApplication
 
                 case "3":
                     boolean runUserQuery3 = true;
+                    //We only want to generate our Map once.
                     if (!query3RunPrev)
                     {
+                        //We generate our Map with our dedicated function to generate a hash map of stopTime objects.
                         stopTimes = stopTime.generateHashMapOfStopTimes("input/stop_times.txt");
                         query3RunPrev = true;
                     }
@@ -134,12 +90,16 @@ public class mainApplication
                         System.out.print("Input an arrival time in the format 'hh:mm:ss': ");
                         String userArrivalTimeInput = scanner.next();
                         userArrivalTimeInput = userArrivalTimeInput.trim();
+                        //We check if the time given by the user is valid with our dedicated function to verify this.
                         if (validTimeFormat(userArrivalTimeInput))
                         {
+                            //We have a dedicated function which prints out all the trips with the given arrival time.
                             stopTime.findListOfTripsWithGivenArrivalTime(userArrivalTimeInput, stopTimes);
                             boolean innerQuery = true;
                             while (innerQuery)
                             {
+                                //We then ask the user if they would like to search for another time.
+                                //By now, the Map stopTimes has already been generated, hence the query would be quick.
                                 System.out.print("Do you want to search for another arrival time? [Y/N]: ");
                                 String userReply = scanner.next();
                                 if (userReply.equalsIgnoreCase("N"))
@@ -153,30 +113,40 @@ public class mainApplication
                                 }
                                 else
                                 {
+                                    //Error handling to cover edge cases where the user provides invalid input to [Y/N].
                                     System.out.println("Please provide a valid answer.");
                                 }
                             }
                         }
                         else
                         {
+                            //Error handling to cover edge cases where the user provides an invalid time format.
                             System.out.println("Please enter a valid time.");
                         }
                     }
                     break;
                 case "4":
+                    //Final farewell message before the application finishes.
                     System.out.println("\nThank you for using the Vancouver Bus Management System.");
                     runApp = false;
                     break;
                 default:
+                    //If any other input is given, that means the user has inputted an invalid response.
                     System.out.println("Please enter a valid query number.\n");
                     break;
             }
         }
         scanner.close();
     }
-    
+
+    /*
+     * Verifies if a given string is in a valid time format for part 3 of the project.
+     * @param: A string representing the input we want to verify.
+     * @return: A boolean representing whether the input is in a valid time format or not.
+     */
     static private boolean validTimeFormat(String s)
     {
+        //The input cannot be null or less than 8 characters and be valid.
         if (s == null || s.length() != 8)
         {
             return false;
@@ -199,6 +169,7 @@ public class mainApplication
                     return true;
                 }
             }
+            //If an exception occurs when parsing the the strings as integers, the input is not in a valid time format.
             catch (NumberFormatException nfe)
             {
                 return false;
