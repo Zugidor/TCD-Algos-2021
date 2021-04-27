@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -37,12 +38,14 @@ public class stopName
                 lineID++;
             }
 
-            int idOfWater = ourTST.get("Water");
-            System.out.println("line id of water: " + idOfWater);
-            int subString = ourTST.get("Hastings");
-            System.out.println("line id of Hastings sub-string: " + subString);
-            int fullString = ourTST.get("SHAUGHNESSY ST FS MCALLISTER AVE NB");
-            System.out.println("line id of full string: " + fullString);
+            int sub1 = ourTST.get("Water");
+            System.out.println("line id of Water sub-string: " + sub1);
+            int sub2 = ourTST.get("Hastings");
+            System.out.println("line id of Hastings sub-string: " + sub2);
+            int miss = ourTST.get("Lorem Ipsum Dolor Sit Amet");
+            System.out.println("line id of Lorem missing string: " + miss);
+            int full = ourTST.get("SHAUGHNESSY ST FS MCALLISTER AVE NB");
+            System.out.println("line id of Shaughnessy full string: " + full);
 
 
             //TODO: Read file, store names of stops, store modified names into TST as per spec sheet with line number as value...
@@ -108,7 +111,7 @@ public class stopName
 
                 return -1;
             }
-            System.out.println("Node data: " + node.data);
+            //System.out.println("Node data: " + node.data);
             if (key.length() > 1)
             {
                 if (c == node.data)
@@ -117,11 +120,11 @@ public class stopName
                 }
                 else if (c > node.data)
                 {   // continue right
-                    return get(node.right, key.substring(1));
+                    return get(node.right, key);
                 }
                 else //if (c < node.data)
                 {   // continue left
-                    return get(node.left, key.substring(1));
+                    return get(node.left, key);
                 }
             }
             else // last node
@@ -129,8 +132,16 @@ public class stopName
                 if (c == node.data)
                 {   // search hit
                     //System.out.println("search hit");
-
-                    return node.value;
+                    if (node.value != null)
+                    {
+                        return node.value;
+                    }
+                    else
+                    {
+                        //TODO: implement substring retrieval of values
+                        System.out.println("substring found");
+                        return 0;
+                    }
                 }
                 else
                 {   // search miss
@@ -143,16 +154,16 @@ public class stopName
          * @param key String to add to TST
          * @param value Number to associate with string
          */
-        TSTNode put(String key, int value)
+        void put(String key, int value)
         {
             if (key.isEmpty() || values.contains(value))
             {
-                return null; // invalid input
+                System.out.println("invalid input to TST.put()!");
+                return; // don't do anything with invalid input
             }
             key = key.toUpperCase(); // TST is in uppercase
             //System.out.println(root);
-            return root = put(root, key, value);
-
+            root = put(root, key, value);
         }
 
         /**
@@ -171,19 +182,23 @@ public class stopName
                 if (node == null)
                 {   // fully new string, make new intermediate node and continue down
                     node = new TSTNode(c, null);
-                    return node.mid = put(node.mid, key.substring(1), value);
+                    node.mid = put(node.mid, key.substring(1), value);
+                    return node;
                 }
                 else if (c == node.data)
                 {   // identical substring, continue down
-                    return node.mid = put(node.mid, key.substring(1), value);
+                    node.mid = put(node.mid, key.substring(1), value);
+                    return node;
                 }
                 else if (c < node.data)
                 {   // mismatch, continue tree left
-                    return node.left = put(node.left, key, value);
+                    node.left = put(node.left, key, value);
+                    return node;
                 }
                 else //if (c > node.data)
                 {   // mismatch, continue tree right
-                    return node.right = put(node.right, key, value);
+                    node.right = put(node.right, key, value);
+                    return node;
                 }
             }
             else // on last node to add
@@ -195,7 +210,7 @@ public class stopName
 
                 }
                 else //if (c == node.data)
-                {   // duplicate string
+                {   // duplicate string, leave unchanged
                     return node;
                 }
             }
