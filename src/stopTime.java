@@ -5,9 +5,9 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-public class stopTime implements Comparable {
-
-    //Variables which we need to declare an object of stopTime.
+public class stopTime
+{
+    //Variables which we need in order to initialize a stopTime object.
     protected String arrival_time;
     protected String stop_headsign;
     protected String departure_time;
@@ -19,7 +19,8 @@ public class stopTime implements Comparable {
     protected int drop_off_type;
 
     //The constructor for a stopTime object, with parameters in the original order as mentioned in the file.
-    protected stopTime(int trip_id, String arrival_time, String departure_time, int stop_id, int stop_sequence, String stop_headsign, int pickup_type, int drop_off_type, String shape_dist_travelled) {
+    protected stopTime(int trip_id, String arrival_time, String departure_time, int stop_id, int stop_sequence, String stop_headsign, int pickup_type, int drop_off_type, String shape_dist_travelled)
+    {
         this.trip_id = trip_id;
         this.arrival_time = arrival_time;
         this.departure_time = departure_time;
@@ -31,16 +32,120 @@ public class stopTime implements Comparable {
         this.shape_dist_travelled = shape_dist_travelled;
     }
 
+    /*-------------HELPER SORTING ALGORITHMS--------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+    //This is the threshold for switching to insertion sort from merge-sort.
+    static final int THRESHOLD = 10;
+
+    /*
+     * Sorts an array of doubles using a recursive implementation of Merge Sort (Top-Down merge sort).
+     * @param: An unsorted array of stopTime objects.
+     * @return: stopTime array sorted in ascending order in relation to each stopTime object's Trip ID.
+     */
+    protected static stopTime[] mergeSort(stopTime[] a)
+    {
+        //if the input is null or has a length less than or equal to 1, there is no point sorting anything! (already sorted)
+        if(a == null || a.length <= 1)
+        {
+            return a;
+        }
+
+        //Otherwise, let's start sorting!
+        stopTime[] auxiliary = new stopTime[a.length];
+        //Kick off recursion by passing in 0 and array length-1 as indices (i.e. the full original array)
+        mergeSort(a, auxiliary, 0, a.length - 1);
+        return a;
+    }
+
+    /*
+     * Private helper method for mergeSort(sortTime[] a)
+     * It automatically uses insertionSort(a, low, high) depending on a cutoff threshold.
+     * @param: An array of stopTime objects, an auxiliary array of stopTime objects, a low value, and a high value.
+     * @return: void.
+     */
+    private static void mergeSort(stopTime[] a, stopTime[] aux, int low, int high)
+    {
+        if (high - low <= THRESHOLD)
+        {
+            insertionSort(a, low, high);
+            return;
+        }
+        int mid = low + (high - low) / 2;
+        mergeSort(a, aux, low, mid);
+        mergeSort(a, aux, mid + 1, high);
+        merge(a, aux, low, mid, high);
+    }
+
+    /*
+     * Private helper method for mergeSort(stopTime[] a, stopTime[] aux, int low, int high) to merge elements.
+     * @param: An array of stopTime objects, an auxiliary array of stopTime objects, a low value, and a high value.
+     * @return: void.
+     */
+    private static void merge(stopTime[] a, stopTime[] aux, int lo, int mid, int hi)
+    {
+        //Copy Array into auxiliary array.
+        if (hi + 1 - lo >= 0)
+        {
+            System.arraycopy(a, lo, aux, lo, hi + 1 - lo);
+        }
+
+        //Merge elements back into original, but sort them!
+        int i = lo;
+        int j = mid + 1;
+        for (int k = lo; k <= hi; k++)
+        {
+            if (i > mid)
+            {
+                a[k] = aux[j++];
+            }
+            else if (j > hi)
+            {
+                a[k] = aux[i++];
+            }
+            //Below we compare based on Trip ID.
+            else if (a[j].trip_id < aux[i].trip_id)
+            {
+                a[k] = aux[j++];
+            }
+            else a[k] = aux[i++];
+        }
+    }
+
+    /*
+     * Private helper method for mergeSort(stopTime[] a, stopTime[] aux, int low, int high) which is used when the input array is less than the cut-off threshold.
+     * @param: An array of stopTime objects, a low value, and a high value.
+     * @return: void.
+     */
+    private static void insertionSort(stopTime[] a,int low,int high)
+    {
+        stopTime key = null;
+        int k;
+        for(int i=low+1;i<=high;i++)
+        {
+            key=a[i];
+            k=i-1;
+            //Below we compare based on Trip ID.
+            while((k>low-1) && a[k].trip_id>key.trip_id)
+            {
+                a[k+1]=a[k];
+                k--;
+            }
+            a[k+1]=key;
+        }
+    }
+
     /*-------------PROGRESS BAR HELPER METHODS------------------------------------------------------------------------------------------------------------------------------------------------------------*/
     /**
      * Returns the number of lines in a file, with the path to the file.
      * @param: Path to the file we want to count the number of lines in.
      * @return: The number of lines in the file.
      */
-    protected static long numberOfLinesInAFile(String pathToFile) throws IOException {
+    protected static long numberOfLinesInAFile(String pathToFile) throws IOException
+    {
         BufferedReader reader = new BufferedReader(new FileReader(pathToFile));
         long counter = 0;
-        while (reader.readLine() != null) {
+        while (reader.readLine() != null)
+        {
             counter++;
         }
         return counter;
@@ -51,7 +156,8 @@ public class stopTime implements Comparable {
      * @param: The current value we are at, and the total value we must reach to be 100% completed.
      * @return: void.
      */
-    static void updateProgressBar(int currentValue, long totalValue) {
+    static void updateProgressBar(int currentValue, long totalValue)
+    {
         //The progress bar percentage
         double progressPercentage = (double)currentValue/(int)totalValue;
         //The progress bar width in units of chars
@@ -60,11 +166,13 @@ public class stopTime implements Comparable {
         System.out.print("\r" + (int)(progressPercentage*100) + "% [");
         //Now print the middle of the progress bar depending on the progress made
         int i = 0;
-        while (i <= (int)(progressPercentage * width)) {
+        while (i <= (int)(progressPercentage * width))
+        {
             System.out.print("#");
             i++;
         }
-        while (i < width) {
+        while (i < width)
+        {
             System.out.print(" ");
             i++;
         }
@@ -82,7 +190,8 @@ public class stopTime implements Comparable {
      * @param: The path to the file which we read stop times from to generate the Hash-Map.
      * @return: A Hash-Map containing a list of stopTime objects, each with a key equivalent to their arrival time.
      */
-    protected static Map<String, List<stopTime>> generateHashMapOfStopTimes (String pathToStopTimesFile) throws IOException {
+    protected static Map<String, List<stopTime>> generateHashMapOfStopTimes (String pathToStopTimesFile) throws IOException
+    {
         //We need to declare a few variables which we will use for the progress bar that will be shown to the user.
         int counterForProgressBar = 0;
         int numberOfValidEntries = 0;
@@ -98,10 +207,11 @@ public class stopTime implements Comparable {
 
         //We have a dedicated function to get the number of lines in the stop times file.
         //We do -1 since the first line is only the titles for each data separated by commas.
-        long totalNumberOfLinesInFile = numberOfLinesInAFile(pathToStopTimesFile) -1;
+        long totalNumberOfLinesInFile = numberOfLinesInAFile(pathToStopTimesFile)-1;
         System.out.println("Reading in " + totalNumberOfLinesInFile + " entries from stop_files.txt");
         //Now we iterate through every line in the file, creating objects for each line, and storing them in the HashMap.
-        while ((currentLine = reader.readLine()) != null) {
+        while ((currentLine = reader.readLine()) != null)
+        {
             //We can split the current line into an array of strings, each element created by the separation of them with a comma.
             String[] tokens = currentLine.split(",");
             //The first number in the line is the trip ID, which would the first element in the array.
@@ -114,12 +224,14 @@ public class stopTime implements Comparable {
             String departure_time = tokens[2].replaceAll("\\s+", "0");
 
             //According to the assignment specification, we should remove all invalid times.
-            try {
+            try
+            {
                 //We can try to parse the strings as LocalTime objects
                 LocalTime.parse(arrival_time, DateTimeFormatter.ofPattern("H:mm:ss"));
                 LocalTime.parse(departure_time, DateTimeFormatter.ofPattern("H:mm:ss"));
             }
-            catch (Exception e) { //If any exceptions arise from doing so, that means the times are invalid.
+            catch (Exception e) //If any exceptions arise from doing so, that means the times are invalid.
+            {
                 //We simply skip this iteration of the loop (i.e. this line), and don't include it in the HashMap.
                 counterForProgressBar++;
                 continue;
@@ -162,7 +274,8 @@ public class stopTime implements Comparable {
 
             //We only want to update the progress bar for every 1% of progress, so the function remains speedy.
             //If we updated the progress bar after every line, the I/0 required would slow down the function.
-            if (counterForProgressBar % ((int)totalNumberOfLinesInFile/100) == 0) {
+            if (counterForProgressBar % ((int)totalNumberOfLinesInFile/100) == 0)
+            {
                     updateProgressBar(counterForProgressBar, totalNumberOfLinesInFile);
             }
         }
@@ -192,29 +305,33 @@ public class stopTime implements Comparable {
         List<stopTime> stopTimesWithMatchingArrivalTime = Map.get(inputArrivalTime);
 
         //If the list is empty, then no matching trips exist.
-        if (stopTimesWithMatchingArrivalTime == null) {
+        if (stopTimesWithMatchingArrivalTime == null)
+        {
             System.out.println("Sorry, there are no trips with the arrival time of " + inputArrivalTime);
             return;
         }
 
         //Otherwise, we have to start sorting the list of sortTime objects by their Trip ID.
         //We can convert the List to an array for simplicity.
-        stopTime[] sort = stopTimesWithMatchingArrivalTime.toArray(new stopTime[0]);
-        //Now we can sort the array of stopTime objects by their Trip ID (thanks to the overridden compareTo() with the included, sophisticated Arrays.sort()
-        Arrays.sort(sort);
+        stopTime[] toSort =  stopTimesWithMatchingArrivalTime.toArray(new stopTime[0]);
+        //Now we can sort the array of stopTime objects by their Trip ID with our improved merge-sort function.
+        stopTime[] sorted = mergeSort(toSort);
         //Convert the sorted array of sortTime objects back to a list.
-        stopTimesWithMatchingArrivalTime = Arrays.asList(sort);
+        stopTimesWithMatchingArrivalTime = Arrays.asList(sorted);
 
         int previousTripID = stopTimesWithMatchingArrivalTime.get(0).trip_id;
-        System.out.println("\n" + String.join("", Collections.nCopies(6," ")) + "Here are all the trips with an arrival time of " + inputArrivalTime + " sorted by Trip ID." + String.join("", Collections.nCopies(6," ")) + "\n");
+        System.out.println("\n" + String.join("", Collections.nCopies(5," ")) + "Here are all the trips with an arrival time of " + inputArrivalTime + " sorted by Trip ID." + String.join("", Collections.nCopies(6," ")) + "\n");
         System.out.println(String.join("", Collections.nCopies(35,"*")) + " SEARCH-RESULTS " + String.join("", Collections.nCopies(35,"*")));
-        for (int i = 0; i < stopTimesWithMatchingArrivalTime.size(); i++) {
-            if(i != 0) {
+        for (int i = 0; i < stopTimesWithMatchingArrivalTime.size(); i++)
+        {
+            if(i != 0)
+            {
                 System.out.println(String.join("", Collections.nCopies(86,"*")));
             }
             System.out.println(String.join("", Collections.nCopies(35," ")) + "Matching trip #" + (i+1));
             System.out.println("[X] Trip ID: " + stopTimesWithMatchingArrivalTime.get(i).trip_id);
-            if (previousTripID > stopTimesWithMatchingArrivalTime.get(i).trip_id) {
+            if (previousTripID > stopTimesWithMatchingArrivalTime.get(i).trip_id)
+            {
                 System.out.println("An error has occurred with the sorting of Trip ID's.");
             }
             previousTripID = stopTimesWithMatchingArrivalTime.get(i).trip_id;
@@ -228,23 +345,5 @@ public class stopTime implements Comparable {
             System.out.println("[X] Shape Distance Travelled: " + stopTimesWithMatchingArrivalTime.get(i).shape_dist_travelled);
         }
         System.out.println(String.join("", Collections.nCopies(86,"*")));
-    }
-    
-    /**
-     * overrides default CompareTo() to allow sorting by trip_id in Arrays.sort()
-     */
-    @Override
-    public int compareTo(Object o)
-    {
-        stopTime a = (stopTime) o;
-        if (this.trip_id > a.trip_id) {
-            return 1;
-        }
-        else if (this.trip_id < a.trip_id) {
-            return -1;
-        }
-        else {
-            return 0;
-        }
     }
 }
