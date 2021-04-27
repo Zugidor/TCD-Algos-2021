@@ -10,7 +10,6 @@ import java.util.List;
 
 public class stopName
 {
-
     stopName(String filename) throws IOException {
         TST ourTST = new TST();
         int lineID = 1;
@@ -83,6 +82,7 @@ public class stopName
          * @param key: String we are looking for
          * @return value associated with the key if found, -1 if not found
          */
+
         int get(String key)
         {
             if (key.isEmpty())
@@ -100,6 +100,7 @@ public class stopName
          * @param key: String we are searching for
          * @return: as above
          */
+
         int get(TSTNode node, String key)
         {
             char c = key.charAt(0);
@@ -146,6 +147,7 @@ public class stopName
          * @param key: String to add to TST
          * @param value: Number to associate with string
          */
+
           TSTNode put(String key, int value)
         {
             if (key.isEmpty() || values.contains(value))
@@ -164,6 +166,7 @@ public class stopName
          * @param key: substring to continue adding
          * @param value: as above
          */
+
           TSTNode put(TSTNode node, String key, int value)
         {
             char c = key.charAt(0);

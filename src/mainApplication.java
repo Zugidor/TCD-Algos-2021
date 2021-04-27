@@ -1,8 +1,5 @@
 import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class mainApplication
 {
@@ -52,7 +49,9 @@ public class mainApplication
         
         Scanner scanner = new Scanner(System.in);
         boolean runApp = true;
+        boolean query1RunPrev = false;
         boolean query3RunPrev = false;
+        FloydWarshallMap stopMap = null;
         Map<String, List<stopTime>> stopTimes = null;
 
         while(runApp)
@@ -65,6 +64,57 @@ public class mainApplication
             {
                 case "1":
                     System.out.println("Sorry, this feature is still being developed.\n");
+                    /*
+                    boolean query1Running = true;
+                    if(!query1RunPrev)
+                    {
+                        stopMap = new FloydWarshallMap("input/stops.txt", "input/stop_times.txt", "input/transfers.txt");
+                        query1RunPrev = true;
+                    }
+                    while(query1Running)
+                    {
+
+                        System.out.print("\nInput the first stop ID: ");
+                        String fromIDString = scanner.next();
+                        System.out.print("\nInput the second stop ID: ");
+                        String toIDString = scanner.next();
+                        try
+                        {
+                            int fromID = Integer.parseInt(fromIDString);
+                            int toID = Integer.parseInt(toIDString);
+                            double cost = stopMap.getCost(fromID, toID);
+                            ArrayList<String> stops = stopMap.getStops(fromID, toID);
+                            if(cost != -1 && stops != null)
+                            {
+                                System.out.println("With a cost of " + cost + ", the shortest route between these two stops is:");
+                                for(int i = 0; i < stops.size(); i++)
+                                    System.out.println(stops.get(i));
+                                // TODO This includes the starting stop and destination, may need to be removed
+                            }
+                            else
+                            {
+                                System.out.println("Stop IDs do not exist or no route exists between these two stops.");
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            System.out.println("Invalid ID input.");
+                        }
+                        boolean providedAnswer = false;
+                        while(!providedAnswer)
+                        {
+                            System.out.print("\nWould you like to search for another route? [Y/N]: ");
+                            String input = scanner.next();
+                            if(input.equalsIgnoreCase("N"))
+                            {
+                                providedAnswer = true;
+                                query1Running = false;
+                            }
+                            else if(input.equalsIgnoreCase("Y")) providedAnswer = true;
+                            else System.out.println("Please provide a valid answer by typing \"Y\" or \"N\".");
+                        }
+                    }
+                     */
                     break;
                 case "2":
                      new stopName("input/stops.txt");
