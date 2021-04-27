@@ -1,48 +1,48 @@
-import javax.sound.sampled.Line;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class stopName
 {
-    stopName(String filename) throws IOException {
+
+    stopName(String filename) throws IOException
+    {
         TST ourTST = new TST();
-        int lineID = 1;
+        int lineID = 2;
         long totalNumberOfLinesInFile = stopTime.numberOfLinesInAFile(filename) -1;
         System.out.println("Reading in " + totalNumberOfLinesInFile + " entries from stopNames.txt");
             BufferedReader reader = new BufferedReader(new FileReader(filename));
-                reader.readLine(); // this will read the first line and skip it
+            reader.readLine(); // this will read the first line and skip it
             String thisLine; //starting loop from 2nd line
-            while ((thisLine = reader.readLine()) != null) {
+            while ((thisLine = reader.readLine()) != null)
+            {
                 String[] tokens = thisLine.split(",");
                 String stopNameUnformatted = tokens[2];
                 String[] test = stopNameUnformatted.split(" ");
-                String stopNameFormatted = switch (test[0]) {//testing for keywords
-                    case "NB" -> stopNameUnformatted.substring(3) + " NB";
-                    case "SB" -> stopNameUnformatted.substring(3) + " SB";
-                    case "WB" -> stopNameUnformatted.substring(3) + " WB";
-                    case "EB" -> stopNameUnformatted.substring(3) + " EB";
-                    case "FLAGSTOP" -> switch (test[1]) {
-                        case "NB" -> stopNameUnformatted.substring(12) + " FLAGSTOP NB";
-                        case "SB" -> stopNameUnformatted.substring(12) + " FLAGSTOP SB";
-                        case "WB" -> stopNameUnformatted.substring(12) + " FLAGSTOP WB";
-                        case "EB" -> stopNameUnformatted.substring(12) + " FLAGSTOP EB";
-                        default -> stopNameUnformatted.substring(10) + " FLAGSTOP";
-                    };
-                    default -> stopNameUnformatted;
-                };
-
+                List<String> t = Arrays.asList(test);
+                ArrayList<String> temp = new ArrayList<>(t);
+                while (temp.get(0).equals("NB") || temp.get(0).equals("SB") ||
+                    temp.get(0).equals("WB") || temp.get(0).equals("EB") ||
+                    temp.get(0).equals("FLAGSTOP"))
+                {
+                    String s = temp.remove(0);
+                    temp.add(s);
+                }
+                String stopNameFormatted = temp.toString();
+                stopNameFormatted = stopNameFormatted.replaceAll("\\p{P}",""); // remove all punctuation added by toString()
                 ourTST.put(stopNameFormatted, lineID); //puts stop name into TST along with line #
                 lineID++;
             }
 
-           int idOfWater = ourTST.get("Water");
-           System.out.println("line id of water: " + idOfWater);
+            int idOfWater = ourTST.get("Water");
+            System.out.println("line id of water: " + idOfWater);
+            int subString = ourTST.get("Hastings");
+            System.out.println("line id of Hastings sub-string: " + subString);
+            int fullString = ourTST.get("SHAUGHNESSY ST FS MCALLISTER AVE NB");
+            System.out.println("line id of full string: " + fullString);
 
 
             //TODO: Read file, store names of stops, store modified names into TST as per spec sheet with line number as value...
@@ -79,40 +79,38 @@ public class stopName
         }
     
         /**
-         * @param key: String we are looking for
+         * @param key String we are looking for
          * @return value associated with the key if found, -1 if not found
          */
-
         int get(String key)
         {
             if (key.isEmpty())
             {
                 return -1;
             }
-            key = key.toLowerCase();
-            System.out.println("root: " + root);
+            key = key.toUpperCase(); // TST is in uppercase
+            //System.out.println("root: " + root);
             return get(root, key);
         }
     
         /**
          * recursive version of get()
-         * @param node: TST node to continue on from
-         * @param key: String we are searching for
-         * @return: as above
+         * @param node TST node to continue on from
+         * @param key String we are searching for
+         * @return as above
          */
-
         int get(TSTNode node, String key)
         {
             char c = key.charAt(0);
             if (node == null)
             {   // search miss
-                System.out.println("Search missed due to node being null");
+                //System.out.println("Search missed due to node being null");
 
                 return -1;
             }
+            System.out.println("Node data: " + node.data);
             if (key.length() > 1)
             {
-                System.out.println("Node data: " + node.data);
                 if (c == node.data)
                 {   // continue down
                     return get(node.mid, key.substring(1));
@@ -130,7 +128,7 @@ public class stopName
             {
                 if (c == node.data)
                 {   // search hit
-                    System.out.println("search hit");
+                    //System.out.println("search hit");
 
                     return node.value;
                 }
@@ -140,34 +138,30 @@ public class stopName
                 }
             }
         }
-
-
-
+        
         /**
-         * @param key: String to add to TST
-         * @param value: Number to associate with string
+         * @param key String to add to TST
+         * @param value Number to associate with string
          */
-
-          TSTNode put(String key, int value)
+        TSTNode put(String key, int value)
         {
             if (key.isEmpty() || values.contains(value))
             {
                 return null; // invalid input
             }
-            key = key.toLowerCase(); // TST is in lowercase
-            System.out.println(root);
+            key = key.toUpperCase(); // TST is in uppercase
+            //System.out.println(root);
             return root = put(root, key, value);
 
         }
 
         /**
          * recursive version of put()
-         * @param node: TST node to continue on from
-         * @param key: substring to continue adding
-         * @param value: as above
+         * @param node TST node to continue on from
+         * @param key substring to continue adding
+         * @param value as above
          */
-
-          TSTNode put(TSTNode node, String key, int value)
+        TSTNode put(TSTNode node, String key, int value)
         {
             char c = key.charAt(0);
             //System.out.println(key);
