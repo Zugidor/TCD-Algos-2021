@@ -3,7 +3,7 @@ import java.util.*;
 
 public class mainApplication
 {
-    //We have constant string values which will be shown as the program starts up.
+	/*-------------CONSTANT STRING VALUES FOR THE FRONT INTERFACE------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
     public static final String firstTitle =
     		"          _   _                                             ______           \r\n" +
     		"         | | | |                                            | ___ \\          \r\n" +
@@ -22,7 +22,6 @@ public class mainApplication
     		"	                                   __/ |                              \r\n" +
     		"	                                  |___/                               " +
     		"	                                                              \r\n";
-    //This string will act as a table showing all the possible queries to the user.
     public static final String queryTable =
             "+-------+----------------------------------------------------------------------------+\n" +
             "| Query |                                  Action                                    |\n" +
@@ -36,9 +35,10 @@ public class mainApplication
             "|   4   | Exit the program.                                                          |\n" +
             "+-------+----------------------------------------------------------------------------+";
 
+    /*-------------VANCOUVER BUS MANAGEMENT SYSTEM APPLICATION---------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
     public static void main(String[] args) throws IOException
     {
-        //Print out the the main title with a description which is shown upon startup of the application.
+        //First, we print out the the main title with a description which is shown upon startup of the application.
         System.out.println(String.join("", Collections.nCopies(86,"*")));
         System.out.println(firstTitle);
         System.out.println(secondTitle);
@@ -48,36 +48,43 @@ public class mainApplication
         System.out.println(String.join("", Collections.nCopies(12, " "))
                 + "Simply enter any query number from the table of queries below.");
 
-        //Now we can take user input from the user with a scanner.
+        //Now, we can take user input from the user with a scanner.
         Scanner scanner = new Scanner(System.in);
         boolean runApp = true;
-        boolean query3RunPrev = false;
+        //After query 1 is requested once, we store the BusStopMap object to speed up future requests for it.
+        BusStopMap stopMap = null;
         boolean query1RunPrev = false;
         //After query 3 is requested once, we store the Map with stopTime objects to speed up future requests for it.
         Map<String, List<stopTime>> stopTimes = null;
-        BusStopMap stopMap = null;
+        boolean query3RunPrev = false;
 
-        //Main application runtime loop
-        while(runApp)
+        //Main application runtime loop.
+        while(runApp) 
         {
             //Print out the query table at the start, and also after every time query 1-3 is completed.
             System.out.println(queryTable);
             System.out.print("\nEnter your query: ");
             String userInput = scanner.next();
-            //User query response
+            
+            //We can now react to the user query response.
             switch (userInput)
             {
+               /**
+                * @feature: Part 1 - Find the shortest paths between 2 bus stops entered by the user.
+                * @return: The list of stops en route as well as the associated “cost”.
+                */
                 case "1":
-                    //System.out.println("Sorry, this feature is still being developed.\n");
                     boolean query1Running = true;
+                    //We only want to generate a BusStopMap object once.
                     if(!query1RunPrev)
                     {
+                    	//We initialize our BusStopMap object only once, as this query is requested for the first time.
                         stopMap = new BusStopMap("input/stops.txt", "input/stop_times.txt", "input/transfers.txt");
                         query1RunPrev = true;
                     }
                     while(query1Running)
                     {
-                        System.out.print("Please enter the ID of the first stop: ");
+                        System.out.print("\nPlease enter the ID of the first stop: ");
                         if(scanner.hasNextInt())
                         {
                             int fromID = scanner.nextInt();
@@ -91,11 +98,8 @@ public class mainApplication
                                     Double cost = stopMap.getCost(toID);
                                     if(cost != null)
                                     {
-                                        System.out.println("With a cost of " + stopMap.getCost(toID) + ", the shortest route is:");
-                                        for (String name : stopMap.getStops(toID))
-                                        {
-                                            System.out.println(name);
-                                        }
+                                        stopMap.getStops(toID, cost);
+                                        
                                     }
                                     else System.out.println("No route exists between these two stops");
                                 }
@@ -118,7 +122,7 @@ public class mainApplication
                         boolean quitAnswerGiven = false;
                         while(!quitAnswerGiven)
                         {
-                            System.out.print("Would you like to search for different stops? [Y/N]: ");
+                            System.out.print("\nWould you like to search for different stops? [Y/N]: ");
                             String reply = scanner.next();
                             if(reply.equalsIgnoreCase("N"))
                             {
@@ -130,6 +134,11 @@ public class mainApplication
                         }
                     }
                 break;
+                
+               /**
+                * @feature: Part 2 - Let the user search for a bus stop by full name or by the first few characters in the name using a ternary search tree (TST).
+                * @return: The full stop information for each stop matching the search criteria.
+                */
                 case "2":
                     boolean runUserQuery2 = true;
                     while (runUserQuery2) {
@@ -153,15 +162,12 @@ public class mainApplication
                                 System.out.println("Please provide a valid answer.");
                             }
                         }
-
-
-
-
                     }
-                    //System.out.println("Sorry, this feature is still being developed.\n");
-
                     break;
-
+               /**
+                * @feature: Part 3 - Let the user search for all trips with a given arrival time.
+                * @return: Full details of all trips matching the criteria sorted by Trip ID.
+                */
                 case "3":
                     boolean runUserQuery3 = true;
                     //We only want to generate our Map once.
@@ -211,20 +217,27 @@ public class mainApplication
                         }
                     }
                 break;
+                
+               /**
+                * @feature: Exit the application.
+                * @return: Final farewell message before the application exits.
+                */
                 case "4":
-                    //Final farewell message before the application finishes.
                     System.out.println("\nThank you for using the Vancouver Bus Management System.");
                     runApp = false;
                 break;
+                
                 default:
-                    //If any other input is given, that means the user has inputted an invalid response.
+                    //If any other input is given, that means the user has entered an invalid response.
                     System.out.println("Please enter a valid query number.\n");
                 break;
             }
         }
+        //We are finished taking user input, so we can close the scanner.
         scanner.close();
     }
 
+    /*-------------MAIN APPLICATION HELPER METHODS---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
     /**
      * Verifies if a given string is in a valid time format for part 3 of the project.
      * @param: A string representing the input we want to verify.

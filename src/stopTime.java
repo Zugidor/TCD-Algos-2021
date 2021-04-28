@@ -32,8 +32,8 @@ public class stopTime
         this.shape_dist_travelled = shape_dist_travelled;
     }
 
-    /*-------------HELPER SORTING ALGORITHMS--------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-
+    /*-------------HELPER SORTING ALGORITHMS---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+    
     //This is the threshold for switching to insertion sort from merge-sort.
     static final int THRESHOLD = 10;
 
@@ -134,55 +134,8 @@ public class stopTime
         }
     }
 
-    /*-------------PROGRESS BAR HELPER METHODS------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-    /**
-     * Returns the number of lines in a file, with the path to the file.
-     * @param: Path to the file we want to count the number of lines in.
-     * @return: The number of lines in the file.
-     */
-    protected static long numberOfLinesInAFile(String pathToFile) throws IOException
-    {
-        BufferedReader reader = new BufferedReader(new FileReader(pathToFile));
-        long counter = 0;
-        while (reader.readLine() != null)
-        {
-            counter++;
-        }
-        return counter;
-    }
-
-    /**
-     * Prints the progress bar to the user to let them visualize the progress being made with particular requests.
-     * @param: The current value we are at, and the total value we must reach to be 100% completed.
-     * @return: void.
-     */
-    static void updateProgressBar(int currentValue, long totalValue)
-    {
-        //The progress bar percentage
-        double progressPercentage = (double)currentValue/(int)totalValue;
-        //The progress bar width in units of chars
-        final int width = 65;
-        //We start the progress bar's text
-        System.out.print("\r" + (int)(progressPercentage*100) + "% [");
-        //Now print the middle of the progress bar depending on the progress made
-        int i = 0;
-        while (i <= (int)(progressPercentage * width))
-        {
-            System.out.print("#");
-            i++;
-        }
-        while (i < width)
-        {
-            System.out.print(" ");
-            i++;
-        }
-        //Finally, print out the end of the progress bar and show the progress in terms of the current line we are at.
-        System.out.print("] " + currentValue + "/" + totalValue);
-    }
-
-
-    /*-------METHODS FOR PART 3 OF THE ASSIGNMENT SPECIFICATION: SEARCHING FOR TRIPS WITH A GIVEN ARRIVAL TIME--------------------------------------------------------------------------------------------*/
-
+    /*-------------METHODS FOR PART 3 OF THE ASSIGNMENT SPECIFICATION: SEARCHING FOR TRIPS WITH A GIVEN ARRIVAL TIME---------------------------------------------------------------------------------------------------------------------*/
+    
     /**
      * Generates a Hash-Map of the stop times, containing a list of stopTime objects each with a key equivalent to their arrival time.
      * As the lines are read, the input is handled appropriately by removing all invalid times and making sure all times follow the format of "hh:mm:ss".
@@ -207,7 +160,7 @@ public class stopTime
 
         //We have a dedicated function to get the number of lines in the stop times file.
         //We do -1 since the first line is only the titles for each data separated by commas.
-        long totalNumberOfLinesInFile = numberOfLinesInAFile(pathToStopTimesFile)-1;
+        long totalNumberOfLinesInFile = progressBar.numberOfLinesInAFile(pathToStopTimesFile)-1;
         System.out.println("Reading in " + totalNumberOfLinesInFile + " entries from stop_files.txt");
         //Now we iterate through every line in the file, creating objects for each line, and storing them in the HashMap.
         while ((currentLine = reader.readLine()) != null)
@@ -276,12 +229,12 @@ public class stopTime
             //If we updated the progress bar after every line, the I/0 required would slow down the function.
             if (counterForProgressBar % ((int)totalNumberOfLinesInFile/100) == 0)
             {
-                    updateProgressBar(counterForProgressBar, totalNumberOfLinesInFile);
+                    progressBar.updateProgressBar(counterForProgressBar, totalNumberOfLinesInFile);
             }
         }
 
         //Once we have successfully read all lines in the file, we have to update the progress bar to represent this.
-        updateProgressBar((int)totalNumberOfLinesInFile, totalNumberOfLinesInFile);
+        progressBar.updateProgressBar((int)totalNumberOfLinesInFile, totalNumberOfLinesInFile);
 
         //Now we can print some general statistics about the data we have just analyzed.
         System.out.println("\nEntries from stop_files.txt have been successfully analyzed.");
