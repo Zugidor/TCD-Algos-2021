@@ -68,7 +68,7 @@ public class mainApplication
             switch (userInput)
             {
                 case "1":
-                    System.out.println("Sorry, this feature is still being developed.\n");
+                    //System.out.println("Sorry, this feature is still being developed.\n");
                     boolean query1Running = true;
                     if(!query1RunPrev)
                     {
@@ -77,20 +77,48 @@ public class mainApplication
                     }
                     while(query1Running)
                     {
-                        System.out.print("\nPlease enter the ID of the first stop: ");
-                        int fromID = scanner.nextInt();
-                        System.out.print("\nPlease enter the ID of the second stop: ");
-                        int toID = scanner.nextInt();
-                        stopMap.makePaths(fromID);
-                        System.out.println("With a cost of " + stopMap.getCost(toID) + ", the shortest route is:");
-                        for(String name : stopMap.getStops(toID))
+                        System.out.print("Please enter the ID of the first stop: ");
+                        if(scanner.hasNextInt())
                         {
-                            System.out.println(name);
+                            int fromID = scanner.nextInt();
+                            System.out.print("Please enter the ID of the second stop: ");
+                            if(scanner.hasNextInt())
+                            {
+                                int toID = scanner.nextInt();
+                                try
+                                {
+                                    stopMap.makePaths(fromID);
+                                    Double cost = stopMap.getCost(toID);
+                                    if(cost != null)
+                                    {
+                                        System.out.println("With a cost of " + stopMap.getCost(toID) + ", the shortest route is:");
+                                        for (String name : stopMap.getStops(toID))
+                                        {
+                                            System.out.println(name);
+                                        }
+                                    }
+                                    else System.out.println("No route exists between these two stops");
+                                }
+                                catch(IllegalArgumentException e)
+                                {
+                                    System.out.println("Invalid Input: One or both of the given IDs do not match any stop");
+                                }
+                            }
+                            else
+                            {
+                                System.out.println("Invalid Input: ID must be a number");
+                                scanner.next();
+                            }
+                        }
+                        else
+                        {
+                            System.out.println("Invalid Input: ID must be a number");
+                            scanner.next();
                         }
                         boolean quitAnswerGiven = false;
                         while(!quitAnswerGiven)
                         {
-                            System.out.print("\nWould you like to search for different stops? [Y/N]: ");
+                            System.out.print("Would you like to search for different stops? [Y/N]: ");
                             String reply = scanner.next();
                             if(reply.equalsIgnoreCase("N"))
                             {
@@ -98,7 +126,7 @@ public class mainApplication
                                 query1Running = false;
                             }
                             else if(reply.equalsIgnoreCase("Y")) quitAnswerGiven = true;
-                            else System.out.println("Invalid answer. Please type Y or N");
+                            else System.out.println("Invalid Input: Answer must be \"Y\" or \"N\"");
                         }
                     }
                 break;

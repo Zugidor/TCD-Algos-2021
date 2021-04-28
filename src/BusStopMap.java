@@ -99,29 +99,40 @@ public class BusStopMap
         reader.close();
     }
 
-    public double getCost(int toID)
+    public Double getCost(int toID)
     {
-        return sps.distTo(stopIndexes.get(toID));
+        if(stopIndexes.containsKey(toID)) return sps.distTo(stopIndexes.get(toID));
+        else throw new IllegalArgumentException();
     }
 
     public ArrayList<String> getStops(int toID)
     {
-        ArrayList<Integer> vertexPath = sps.getPath(stopIndexes.get(toID));
-        ArrayList<String> stopPath = new ArrayList<String>();
-        int vertex = 0;
-        String name = null;
-        for(int i = 0; i < vertexPath.size(); i++)
+        if(stopIndexes.containsKey(toID))
         {
-            vertex = vertexPath.get(i);
-            name = indexToName.get(vertex);
-            stopPath.add(name);
+            ArrayList<Integer> vertexPath = sps.getPath(stopIndexes.get(toID));
+            if (vertexPath.size() > 0)
+            {
+                ArrayList<String> stopPath = new ArrayList<String>();
+                int vertex = 0;
+                String name = null;
+                // getPath returns the list in reverse order, with the destination vertex first and source last.
+                // Reverse the order for the String arraylist
+                for (int i = vertexPath.size() - 1; i >= 0; i--)
+                {
+                    vertex = vertexPath.get(i);
+                    name = indexToName.get(vertex);
+                    stopPath.add(name);
+                }
+                return stopPath;
+            } else return null;
         }
-        return stopPath;
+        else throw new IllegalArgumentException();
     }
 
     public void makePaths(int fromID)
     {
-        sps = new DijkstraShortestPaths(this, stopIndexes.get(fromID));
+        if(stopIndexes.containsKey(fromID)) sps = new DijkstraShortestPaths(this, stopIndexes.get(fromID));
+        else throw new IllegalArgumentException();
     }
 
     public int V()
