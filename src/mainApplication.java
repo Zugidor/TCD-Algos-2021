@@ -91,9 +91,11 @@ public class mainApplication
                                     if(cost != null)
                                     {
                                         System.out.println("With a cost of " + stopMap.getCost(toID) + ", the shortest route is:");
+                                        int i = 1;
                                         for (String name : stopMap.getStops(toID))
                                         {
-                                            System.out.println(name);
+                                            System.out.println(i + ". " + name);
+                                            i++;
                                         }
                                     }
                                     else System.out.println("No route exists between these two stops");
@@ -124,8 +126,15 @@ public class mainApplication
                                 quitAnswerGiven = true;
                                 query1Running = false;
                             }
-                            else if(reply.equalsIgnoreCase("Y")) quitAnswerGiven = true;
-                            else System.out.println("Invalid Input: Answer must be \"Y\" or \"N\"");
+                            else if(reply.equalsIgnoreCase("Y"))
+                            {
+                                quitAnswerGiven = true;
+                            }
+                            else
+                            {
+                                //Error handling to cover edge cases where the user provides invalid input to [Y/N].
+                                System.out.println("Invalid Input: Please enter \"Y\" if yes or \"N\" if no");
+                            }
                         }
                     }
                 break;
@@ -153,8 +162,7 @@ public class mainApplication
                             }
                             else
                             {
-                                //Error handling to cover edge cases where the user provides invalid input to [Y/N].
-                                System.out.println("Please provide a valid answer.");
+                                System.out.println("Invalid Input: Please enter \"Y\" if yes or \"N\" if no");
                             }
                         }
                     }
@@ -196,8 +204,7 @@ public class mainApplication
                                 }
                                 else
                                 {
-                                    //Error handling to cover edge cases where the user provides invalid input to [Y/N].
-                                    System.out.println("Please provide a valid answer.");
+                                    System.out.println("Invalid Input: Please enter \"Y\" if yes or \"N\" if no");
                                 }
                             }
                         }
