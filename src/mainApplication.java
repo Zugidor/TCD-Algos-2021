@@ -1,8 +1,5 @@
 import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class mainApplication
 {
@@ -55,8 +52,10 @@ public class mainApplication
         Scanner scanner = new Scanner(System.in);
         boolean runApp = true;
         boolean query3RunPrev = false;
+        boolean query1RunPrev = false;
         //After query 3 is requested once, we store the Map with stopTime objects to speed up future requests for it.
         Map<String, List<stopTime>> stopTimes = null;
+        BusStopMap stopMap = null;
 
         //Main application runtime loop
         while(runApp)
@@ -70,6 +69,38 @@ public class mainApplication
             {
                 case "1":
                     System.out.println("Sorry, this feature is still being developed.\n");
+                    boolean query1Running = true;
+                    if(!query1RunPrev)
+                    {
+                        stopMap = new BusStopMap("input/stops.txt", "input/stop_times.txt", "input/transfers.txt");
+                        query1RunPrev = true;
+                    }
+                    while(query1Running)
+                    {
+                        System.out.print("\nPlease enter the ID of the first stop: ");
+                        int fromID = scanner.nextInt();
+                        System.out.print("\nPlease enter the ID of the second stop: ");
+                        int toID = scanner.nextInt();
+                        stopMap.makePaths(fromID);
+                        System.out.println("With a cost of " + stopMap.getCost(toID) + ", the shortest route is:");
+                        for(String name : stopMap.getStops(toID))
+                        {
+                            System.out.println(name);
+                        }
+                        boolean quitAnswerGiven = false;
+                        while(!quitAnswerGiven)
+                        {
+                            System.out.print("\nWould you like to search for different stops? [Y/N]: ");
+                            String reply = scanner.next();
+                            if(reply.equalsIgnoreCase("N"))
+                            {
+                                quitAnswerGiven = true;
+                                query1Running = false;
+                            }
+                            else if(reply.equalsIgnoreCase("Y")) quitAnswerGiven = true;
+                            else System.out.println("Invalid answer. Please type Y or N");
+                        }
+                    }
                 break;
                 case "2":
                     new stopName("input/stops.txt");
