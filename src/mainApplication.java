@@ -103,9 +103,37 @@ public class mainApplication
                     }
                 break;
                 case "2":
-                    new stopName("input/stops.txt");
-                    System.out.println("Note: This feature is currently unfinished.\n");
-                break;
+                    boolean runUserQuery2 = true;
+                    while (runUserQuery2) {
+                        System.out.println("Please Enter the name of the bus stop you would like to search for: ");
+
+
+                        String searchQuery = scanner.next();
+                        searchQuery += scanner.nextLine();
+                        new stopName("input/stops.txt", searchQuery);
+                        boolean exitQuery = true;
+                        while (exitQuery) {
+                            System.out.print("Do you want to search for another Bus Stop? [Y/N]: ");
+                            String userReply = scanner.next();
+                            if (userReply.equalsIgnoreCase("N")) {
+                                exitQuery = false;
+                                runUserQuery2 = false;
+                            } else if (userReply.equalsIgnoreCase("Y")) {
+                                exitQuery = false;
+                            } else {
+                                //Error handling to cover edge cases where the user provides invalid input to [Y/N].
+                                System.out.println("Please provide a valid answer.");
+                            }
+                        }
+
+
+
+
+                    }
+                    //System.out.println("Sorry, this feature is still being developed.\n");
+
+                    break;
+
                 case "3":
                     boolean runUserQuery3 = true;
                     //We only want to generate our Map once.
