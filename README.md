@@ -7,10 +7,9 @@
 ## What features does this project implement?
 
   1. It can find the shortest paths between 2 bus stops inputted by the user, returning the list of stops en route as well as the associated “cost”.
-  2. One can search for a bus stop by full name or by the first few characters in the name using a ternary search tree (
-     TST), returning the full stop information for each stop matching the search criteria.
-  3. One can search for all trips with a given arrival time, returning full details of all trips matching the criteria sorted by trip id.
-  4. A front interface enabling selection for features 1-3 with an option to exit the program and enabling required user input with functionality/error checking.
+  2. One can search for a bus stop by full name or by the first few characters in the name using a ternary search tree (TST), returning the full stop information for each stop matching the search criteria.
+  4. One can search for all trips with a given arrival time, returning full details of all trips matching the criteria sorted by trip id.
+  5. A front interface enabling selection for features 1-3 with an option to exit the program and enabling required user input with functionality/error checking.
 
 ## Group Members
 
