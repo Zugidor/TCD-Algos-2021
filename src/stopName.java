@@ -3,6 +3,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -44,23 +45,58 @@ public class stopName
             try (Stream<String> lines = Files.lines(Paths.get(filename)))
             {
                 output = lines.skip(returnValue - 1).findFirst().get();
-                System.out.println("1 Result found:");
-                System.out.println(output);
+                String[] outTokens = output.split(",");
+                System.out.println(String.join("", Collections.nCopies(35,"*")) + " SEARCH-RESULTS " + String.join("", Collections.nCopies(35,"*")));
+                System.out.println(String.join("", Collections.nCopies(35," ")) + "Matching stop #1");
+                System.out.println("[+] ID: " + outTokens[0]);
+                System.out.println("[+] Code: " + outTokens[1]);
+                System.out.println("[+] Name: " + outTokens[2]);
+                System.out.println("[+] Description: " + outTokens[3]);
+                System.out.println("[+] Latitude: " + outTokens[4]);
+                System.out.println("[+] Longitude: " + outTokens[5]);
+                System.out.println("[+] Zone ID: " + outTokens[6]);
+                System.out.println("[+] URL: " + outTokens[7]);
+                System.out.println("[+] Location Type: " + outTokens[8]);
+                System.out.println("[+] Parent Station: " + outTokens[9]);
+                System.out.println(String.join("", Collections.nCopies(86,"*")));
             }
         }
         else if (returnValue == 0) //if multiple results found
         {
-            System.out.println(TST.allNames.size() + " Results found:");
+            System.out.println(String.join("", Collections.nCopies(35,"*")) + " SEARCH-RESULTS " + String.join("", Collections.nCopies(35,"*")));
             for (int i = 0; i <= TST.allNames.size() - 1; i++)
             {
                 String output;
                 int lineNumber = TST.allNames.get(i);
+                if(i != 0)
+                {
+                    System.out.println(String.join("", Collections.nCopies(86,"*")));
+                }
+                System.out.println(String.join("", Collections.nCopies(35," ")) + "Matching stop #" + (i+1));
                 try (Stream<String> lines = Files.lines(Paths.get(filename)))
                 {
                     output = lines.skip(lineNumber - 1).findFirst().get(); //line number -1 as we skipped the first line when inputting data
-                    System.out.println(i + 1 + ": " + output);
+                    String[] outTokens = output.split(",");
+                    System.out.println("[+] ID: " + outTokens[0]);
+                    System.out.println("[+] Code: " + outTokens[1]);
+                    System.out.println("[+] Name: " + outTokens[2]);
+                    System.out.println("[+] Description: " + outTokens[3]);
+                    System.out.println("[+] Latitude: " + outTokens[4]);
+                    System.out.println("[+] Longitude: " + outTokens[5]);
+                    System.out.println("[+] Zone ID: " + outTokens[6]);
+                    System.out.println("[+] URL: " + outTokens[7]);
+                    System.out.println("[+] Location Type: " + outTokens[8]);
+                    if (outTokens.length > 9)
+                    {
+                        System.out.println("[+] Parent Station: " + outTokens[9]);
+                    }
+                    else
+                    {
+                        System.out.println("[+] Parent Station: ");
+                    }
                 }
             }
+            System.out.println(String.join("", Collections.nCopies(86,"*")));
         }
         else
         {
