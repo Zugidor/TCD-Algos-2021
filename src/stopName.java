@@ -13,8 +13,8 @@ public class stopName
 {
     stopName(String filename, String Query) throws IOException
     {
-        TST ourTST = new TST();
-        int lineID = 2;
+        TST ourTST = new TST(); // make our Ternary Search Tree
+        int lineID = 2; // Start at the second line to ignore the definitions line in stops.txt
         TST.allNames.clear();
         BufferedReader reader = new BufferedReader(new FileReader(filename));
         reader.readLine(); // this will read the first line and skip it
@@ -181,11 +181,11 @@ public class stopName
                 if (c == node.data)
                 {   // search hit
                     if (node.value != null)
-                    {
+                    {   // one result
                         return node.value;
                     }
                     else
-                    {
+                    {   // multiple results
                         traverse(node, "");
                         return 0;
                     }
@@ -196,7 +196,12 @@ public class stopName
                 }
             }
         }
-        
+    
+        /**
+         *
+         * @param node
+         * @param string
+         */
         private void traverse(TSTNode node, String string)
         {
             if (node != null)
@@ -204,7 +209,7 @@ public class stopName
                 traverse(node.left, string);
                 string = string + node.data;
                 if (node.value != null)
-                {   //if last node then add Line ID to Arraylist
+                {   //if last node then add Line ID to allNames ArrayList
                     allNames.add(node.value);
                 }
                 traverse(node.mid, string);
