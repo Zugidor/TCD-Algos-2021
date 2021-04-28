@@ -84,7 +84,7 @@ public class mainApplication
                     }
                     while(query1Running)
                     {   //Receive the two necessary inputs
-                        System.out.print("Please enter the ID of the first stop: ");
+                        System.out.print("\nPlease enter the ID of the first stop: ");
                         if(scanner.hasNextInt())
                         {
                             int fromID = scanner.nextInt();
