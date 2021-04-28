@@ -38,7 +38,7 @@ This markdown file contains the list of things **that have been completed by the
 
 - Elements of part 4 of the project has been completed by `saisankp` to merge both the user interface with the functionality of part 3.
 
-- Hence, the application is currently looking like ***[this][ProgressVideo]***
+- Hence, the application is currently looking like ***[this.][ProgressVideo]***
 
 ## Academic Calendar Week 34
 
@@ -53,6 +53,12 @@ This markdown file contains the list of things **that have been completed by the
 - Application development is progressing smoothly.
 
 ## Academic Calendar Week 35
+
+- Part 1 of the project has been completed by `A-Mulvihill`.
+
+- Part 2 of the project has been completed by `danieli1245`.
+
+- Final additions to the code have been added by `Zugidor` and `saisankp`.
 
 [AcademicCalendar]: https://www.tcd.ie/calendar/academic-year-structure/academic-year-structure.pdf
 [TODO]: https://github.com/Zugidor/TCD-Algos-2021/blob/main/TODO.md
