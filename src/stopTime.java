@@ -37,7 +37,7 @@ public class stopTime
     //This is the threshold for switching to insertion sort from merge-sort.
     static final int THRESHOLD = 10;
 
-    /*
+    /**
      * Sorts an array of doubles using a recursive implementation of Merge Sort (Top-Down merge sort).
      * @param: An unsorted array of stopTime objects.
      * @return: stopTime array sorted in ascending order in relation to each stopTime object's Trip ID.
@@ -57,7 +57,7 @@ public class stopTime
         return a;
     }
 
-    /*
+    /**
      * Private helper method for mergeSort(sortTime[] a)
      * It automatically uses insertionSort(a, low, high) depending on a cutoff threshold.
      * @param: An array of stopTime objects, an auxiliary array of stopTime objects, a low value, and a high value.
@@ -76,7 +76,7 @@ public class stopTime
         merge(a, aux, low, mid, high);
     }
 
-    /*
+    /**
      * Private helper method for mergeSort(stopTime[] a, stopTime[] aux, int low, int high) to merge elements.
      * @param: An array of stopTime objects, an auxiliary array of stopTime objects, a low value, and a high value.
      * @return: void.
@@ -111,31 +111,30 @@ public class stopTime
         }
     }
 
-    /*
+    /**
      * Private helper method for mergeSort(stopTime[] a, stopTime[] aux, int low, int high) which is used when the input array is less than the cut-off threshold.
      * @param: An array of stopTime objects, a low value, and a high value.
      * @return: void.
      */
-    private static void insertionSort(stopTime[] a,int low,int high)
+    private static void insertionSort(stopTime[] a, int low, int high)
     {
-        stopTime key = null;
+        stopTime key;
         int k;
-        for(int i=low+1;i<=high;i++)
+        for(int i = low+1; i <= high; i++)
         {
-            key=a[i];
-            k=i-1;
+            key = a[i];
+            k = i - 1;
             //Below we compare based on Trip ID.
-            while((k>low-1) && a[k].trip_id>key.trip_id)
+            while((k > low-1) && a[k].trip_id > key.trip_id)
             {
-                a[k+1]=a[k];
+                a[k+1] = a[k];
                 k--;
             }
-            a[k+1]=key;
+            a[k+1] = key;
         }
     }
 
     /*-------------METHODS FOR PART 3 OF THE ASSIGNMENT SPECIFICATION: SEARCHING FOR TRIPS WITH A GIVEN ARRIVAL TIME---------------------------------------------------------------------------------------------------------------------*/
-    
     /**
      * Generates a Hash-Map of the stop times, containing a list of stopTime objects each with a key equivalent to their arrival time.
      * As the lines are read, the input is handled appropriately by removing all invalid times and making sure all times follow the format of "hh:mm:ss".
@@ -282,20 +281,20 @@ public class stopTime
                 System.out.println(String.join("", Collections.nCopies(86,"*")));
             }
             System.out.println(String.join("", Collections.nCopies(35," ")) + "Matching trip #" + (i+1));
-            System.out.println("[X] Trip ID: " + stopTimesWithMatchingArrivalTime.get(i).trip_id);
+            System.out.println("[+] Trip ID: " + stopTimesWithMatchingArrivalTime.get(i).trip_id);
             if (previousTripID > stopTimesWithMatchingArrivalTime.get(i).trip_id)
             {
                 System.out.println("An error has occurred with the sorting of Trip ID's.");
             }
             previousTripID = stopTimesWithMatchingArrivalTime.get(i).trip_id;
-            System.out.println("[X] Arrival Time: " + stopTimesWithMatchingArrivalTime.get(i).arrival_time);
-            System.out.println("[X] Departure Time: " + stopTimesWithMatchingArrivalTime.get(i).departure_time);
-            System.out.println("[X] Stop ID: " + stopTimesWithMatchingArrivalTime.get(i).stop_id);
-            System.out.println("[X] Stop Sequence: " + stopTimesWithMatchingArrivalTime.get(i).stop_sequence);
-            System.out.println("[X] Stop Headsign: " + stopTimesWithMatchingArrivalTime.get(i).stop_headsign);
-            System.out.println("[X] Pickup Type: " + stopTimesWithMatchingArrivalTime.get(i).pickup_type);
-            System.out.println("[X] Drop Off Type: " + stopTimesWithMatchingArrivalTime.get(i).drop_off_type);
-            System.out.println("[X] Shape Distance Travelled: " + stopTimesWithMatchingArrivalTime.get(i).shape_dist_travelled);
+            System.out.println("[+] Arrival Time: " + stopTimesWithMatchingArrivalTime.get(i).arrival_time);
+            System.out.println("[+] Departure Time: " + stopTimesWithMatchingArrivalTime.get(i).departure_time);
+            System.out.println("[+] Stop ID: " + stopTimesWithMatchingArrivalTime.get(i).stop_id);
+            System.out.println("[+] Stop Sequence: " + stopTimesWithMatchingArrivalTime.get(i).stop_sequence);
+            System.out.println("[+] Stop Headsign: " + stopTimesWithMatchingArrivalTime.get(i).stop_headsign);
+            System.out.println("[+] Pickup Type: " + stopTimesWithMatchingArrivalTime.get(i).pickup_type);
+            System.out.println("[+] Drop Off Type: " + stopTimesWithMatchingArrivalTime.get(i).drop_off_type);
+            System.out.println("[+] Shape Distance Travelled: " + stopTimesWithMatchingArrivalTime.get(i).shape_dist_travelled);
         }
         System.out.println(String.join("", Collections.nCopies(86,"*")));
     }

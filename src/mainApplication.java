@@ -71,7 +71,7 @@ public class mainApplication
             {
                /**
                 * @feature: Part 1 - Find the shortest paths between 2 bus stops entered by the user.
-                * @return: The list of stops en route as well as the associated “cost”.
+                * @return: The list of stops en route as well as the associated ï¿½costï¿½.
                 */
                 case "1":
                     boolean query1Running = true;
@@ -83,8 +83,8 @@ public class mainApplication
                         query1RunPrev = true;
                     }
                     while(query1Running)
-                    {
-                        System.out.print("\nPlease enter the ID of the first stop: ");
+                    {   //Receive the two necessary inputs
+                        System.out.print("Please enter the ID of the first stop: ");
                         if(scanner.hasNextInt())
                         {
                             int fromID = scanner.nextInt();
@@ -94,43 +94,53 @@ public class mainApplication
                                 int toID = scanner.nextInt();
                                 try
                                 {
+                                    //Calculate shortest paths and cost
                                     stopMap.makePaths(fromID);
                                     Double cost = stopMap.getCost(toID);
                                     if(cost != null)
                                     {
                                         stopMap.getStops(toID, cost);
-                                        
                                     }
-                                    else System.out.println("No route exists between these two stops");
+                                    else
+                                    {   //No path found
+                                        System.out.println("No route exists between these two stops");
+                                    }
                                 }
                                 catch(IllegalArgumentException e)
-                                {
+                                {   //Error handling
                                     System.out.println("Invalid Input: One or both of the given IDs do not match any stop");
                                 }
                             }
                             else
-                            {
+                            {   //Error handling
                                 System.out.println("Invalid Input: ID must be a number");
                                 scanner.next();
                             }
                         }
                         else
-                        {
+                        {   //Error handling
                             System.out.println("Invalid Input: ID must be a number");
                             scanner.next();
                         }
                         boolean quitAnswerGiven = false;
                         while(!quitAnswerGiven)
-                        {
-                            System.out.print("\nWould you like to search for different stops? [Y/N]: ");
+                        {   //Ask the user whether to repeat the query or not
+                            System.out.print("Would you like to search for different stops? [Y/N]: ");
                             String reply = scanner.next();
                             if(reply.equalsIgnoreCase("N"))
                             {
                                 quitAnswerGiven = true;
                                 query1Running = false;
                             }
-                            else if(reply.equalsIgnoreCase("Y")) quitAnswerGiven = true;
-                            else System.out.println("Invalid Input: Answer must be \"Y\" or \"N\"");
+                            else if(reply.equalsIgnoreCase("Y"))
+                            {
+                                quitAnswerGiven = true;
+                            }
+                            else
+                            {
+                                //Error handling
+                                System.out.println("Invalid Input: Please enter \"Y\" if yes or \"N\" if no");
+                            }
                         }
                     }
                 break;
@@ -141,25 +151,30 @@ public class mainApplication
                 */
                 case "2":
                     boolean runUserQuery2 = true;
-                    while (runUserQuery2) {
-                        System.out.println("Please Enter the name of the bus stop you would like to search for: ");
-
-
+                    while (runUserQuery2)
+                    {   //Receive user input
+                        System.out.print("Please Enter the name of the bus stop you would like to search for: ");
                         String searchQuery = scanner.next();
                         searchQuery += scanner.nextLine();
+                        //stopName() constructor does all the calculation and output
                         new stopName("input/stops.txt", searchQuery);
                         boolean exitQuery = true;
-                        while (exitQuery) {
+                        while (exitQuery)
+                        {   //Ask user whether they wish to repeat this query
                             System.out.print("Do you want to search for another Bus Stop? [Y/N]: ");
                             String userReply = scanner.next();
-                            if (userReply.equalsIgnoreCase("N")) {
+                            if (userReply.equalsIgnoreCase("N"))
+                            {
                                 exitQuery = false;
                                 runUserQuery2 = false;
-                            } else if (userReply.equalsIgnoreCase("Y")) {
+                            }
+                            else if (userReply.equalsIgnoreCase("Y"))
+                            {
                                 exitQuery = false;
-                            } else {
-                                //Error handling to cover edge cases where the user provides invalid input to [Y/N].
-                                System.out.println("Please provide a valid answer.");
+                            }
+                            else
+                            {   //Error handling
+                                System.out.println("Invalid Input: Please enter \"Y\" if yes or \"N\" if no");
                             }
                         }
                     }
@@ -204,9 +219,8 @@ public class mainApplication
                                     innerQuery = false;
                                 }
                                 else
-                                {
-                                    //Error handling to cover edge cases where the user provides invalid input to [Y/N].
-                                    System.out.println("Please provide a valid answer.");
+                                {   //Error handling
+                                    System.out.println("Invalid Input: Please enter \"Y\" if yes or \"N\" if no");
                                 }
                             }
                         }

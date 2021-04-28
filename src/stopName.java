@@ -3,22 +3,24 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.*;
-public class stopName {
 
-    stopName(String filename, String Query) throws IOException {
-        TST ourTST = new TST();
-        int lineID = 2;
-        //long totalNumberOfLinesInFile = stopTime.numberOfLinesInAFile(filename) - 1;
-        ///System.out.println("Reading in " + totalNumberOfLinesInFile + " entries from stopNames.txt");
+public class stopName
+{
+    stopName(String filename, String Query) throws IOException
+    {
+        TST ourTST = new TST(); // make our Ternary Search Tree
+        int lineID = 2; // Start at the second line to ignore the definitions line in stops.txt
         TST.allNames.clear();
         BufferedReader reader = new BufferedReader(new FileReader(filename));
         reader.readLine(); // this will read the first line and skip it
         String thisLine; //starting loop from 2nd line
-        while ((thisLine = reader.readLine()) != null) {
+        while ((thisLine = reader.readLine()) != null)
+        {
             String[] tokens = thisLine.split(",");
             String stopNameUnformatted = tokens[2];
             String[] test = stopNameUnformatted.split(" ");
@@ -26,7 +28,8 @@ public class stopName {
             ArrayList<String> temp = new ArrayList<>(t);
             while (temp.get(0).equals("NB") || temp.get(0).equals("SB") ||
                     temp.get(0).equals("WB") || temp.get(0).equals("EB") ||
-                    temp.get(0).equals("FLAGSTOP")) {
+                    temp.get(0).equals("FLAGSTOP"))
+            {
                 String s = temp.remove(0);
                 temp.add(s);
             }
@@ -34,98 +37,116 @@ public class stopName {
             stopNameFormatted = stopNameFormatted.replaceAll("\\p{P}", ""); // remove all punctuation added by toString()
             ourTST.put(stopNameFormatted, lineID); //puts stop name into TST along with line #
             lineID++;
-
         }
-        /*
-        int sub3 = ourTST.get("SHAUGHNESSY");
-        System.out.println("line id of SHAUGHNESSY: " + sub3);
-        int sub2 = ourTST.get("Hastings");
-        System.out.println("line id of Hastings sub-string: " + sub2);
-        int miss = ourTST.get("Lorem Ipsum Dolor Sit Amet");
-        System.out.println("line id of Lorem missing string: " + miss);
-        int full = ourTST.get("SHAUGHNESSY ST FS MCALLISTER AVE NB");
-        System.out.println("line id of Shaughnessy full string: " + full);
-        // System.out.println(ourTST.toString());
-        System.out.println("Query: " + Query);
-        System.out.println("line id of Shaughnessy full Query: " + returnValue);
-        int full = ourTST.get("SHAUGHNESSY ST FS MCALLISTER AVE NB");
-        System.out.println("line id of Shaughnessy full string: " + full);
-         */
-
-        int returnValue = ourTST.get(Query); //if 1 result found
-        if (returnValue > 0) {
+        int returnValue = ourTST.get(Query);
+        if (returnValue > 0) //if 1 result found
+        {
             String output;
-            try (Stream<String> lines = Files.lines(Paths.get(filename))) {
+            try (Stream<String> lines = Files.lines(Paths.get(filename)))
+            {
                 output = lines.skip(returnValue - 1).findFirst().get();
-                System.out.println("1 Result found:");
-                System.out.println(output);
-
+                String[] outTokens = output.split(",");
+                System.out.println(String.join("", Collections.nCopies(35,"*")) + " SEARCH-RESULTS " + String.join("", Collections.nCopies(35,"*")));
+                System.out.println(String.join("", Collections.nCopies(35," ")) + "Matching stop #1");
+                System.out.println("[+] ID: " + outTokens[0]);
+                System.out.println("[+] Code: " + outTokens[1]);
+                System.out.println("[+] Name: " + outTokens[2]);
+                System.out.println("[+] Description: " + outTokens[3]);
+                System.out.println("[+] Latitude: " + outTokens[4]);
+                System.out.println("[+] Longitude: " + outTokens[5]);
+                System.out.println("[+] Zone ID: " + outTokens[6]);
+                System.out.println("[+] URL: " + outTokens[7]);
+                System.out.println("[+] Location Type: " + outTokens[8]);
+                System.out.println("[+] Parent Station: " + outTokens[9]);
+                System.out.println(String.join("", Collections.nCopies(86,"*")));
             }
         }
-        else if (returnValue == 0) { //if multiple results found
-            System.out.println(TST.allNames.size() + " Results found:");
-
-            for (int i = 0; i <= TST.allNames.size() - 1; i++) {
+        else if (returnValue == 0) //if multiple results found
+        {
+            System.out.println(String.join("", Collections.nCopies(35,"*")) + " SEARCH-RESULTS " + String.join("", Collections.nCopies(35,"*")));
+            for (int i = 0; i <= TST.allNames.size() - 1; i++)
+            {
                 String output;
                 int lineNumber = TST.allNames.get(i);
-                try (Stream<String> lines = Files.lines(Paths.get(filename))) {
+                if(i != 0)
+                {
+                    System.out.println(String.join("", Collections.nCopies(86,"*")));
+                }
+                System.out.println(String.join("", Collections.nCopies(35," ")) + "Matching stop #" + (i+1));
+                try (Stream<String> lines = Files.lines(Paths.get(filename)))
+                {
                     output = lines.skip(lineNumber - 1).findFirst().get(); //line number -1 as we skipped the first line when inputting data
-
-                    System.out.println(i+1 + ": " + output);
+                    String[] outTokens = output.split(",");
+                    System.out.println("[+] ID: " + outTokens[0]);
+                    System.out.println("[+] Code: " + outTokens[1]);
+                    System.out.println("[+] Name: " + outTokens[2]);
+                    System.out.println("[+] Description: " + outTokens[3]);
+                    System.out.println("[+] Latitude: " + outTokens[4]);
+                    System.out.println("[+] Longitude: " + outTokens[5]);
+                    System.out.println("[+] Zone ID: " + outTokens[6]);
+                    System.out.println("[+] URL: " + outTokens[7]);
+                    System.out.println("[+] Location Type: " + outTokens[8]);
+                    if (outTokens.length > 9)
+                    {
+                        System.out.println("[+] Parent Station: " + outTokens[9]);
+                    }
+                    else
+                    {
+                        System.out.println("[+] Parent Station: ");
+                    }
                 }
             }
-
-        } else {
+            System.out.println(String.join("", Collections.nCopies(86,"*")));
+        }
+        else
+        {
             System.out.println("No search result found, please try again");
         }
-        }
-
-
-
+    }
+    
     // Ternary Search Tree subclass
-    protected static class TST {
-        public static ArrayList<Integer> allNames= new ArrayList<Integer>();
-
+    protected static class TST
+    {
+        public static ArrayList<Integer> allNames = new ArrayList<>();
         ArrayList<Integer> values; // dynamic array to track all values in the TST to avoid duplicate values
         TSTNode root;
-
+        
         TST() // new empty TST
         {
             values = new ArrayList<>();
             root = null;
         }
-
-        static class TSTNode {
+        
+        static class TSTNode
+        {
             char data;
             Integer value;
-            Boolean isEnd;
-
             TSTNode left, mid, right;
-
+            
             TSTNode(char data, Integer value) // new node with null links
             {
                 this.value = value;
                 this.data = data;
-                this.isEnd = false;
                 left = null;
                 mid = null;
                 right = null;
             }
         }
-
+        
         /**
          * @param key String we are looking for
          * @return value associated with the key if found, -1 if not found
          */
-        int get(String key) {
-            if (key.isEmpty()) {
+        int get(String key)
+        {
+            if (key.isEmpty())
+            {
                 return -1;
             }
             key = key.toUpperCase(); // TST is in uppercase
-            //System.out.println("root: " + root);
             return get(root, key);
         }
-
+        
         /**
          * recursive version of get()
          *
@@ -133,61 +154,72 @@ public class stopName {
          * @param key  String we are searching for
          * @return as above
          */
-        int get(TSTNode node, String key) {
+        int get(TSTNode node, String key)
+        {
             char c = key.charAt(0);
-            if (node == null) {   // search miss
-                //System.out.println("Search missed due to node being null");
-
+            if (node == null)
+            {   // search miss
                 return -1;
             }
-            //System.out.println("Node data: " + node.data);
-            else if (key.length() > 1) {
-                if (c == node.data) {   // continue down
+            else if (key.length() > 1)
+            {
+                if (c == node.data)
+                {   // continue down
                     return get(node.mid, key.substring(1));
-                } else if (c > node.data) {   // continue right
+                }
+                else if (c > node.data)
+                {   // continue right
                     return get(node.right, key);
-                } else //if (c < node.data) {   // continue left
+                }
+                else //if (c < node.data)
+                {   // continue left
                     return get(node.left, key);
                 }
-             else // last node
-            {
-                if (c == node.data) {   // search hit
-                    //System.out.println("search hit");
-                    if (node.value != null) {
+            }
+            else
+            {   // last node
+                if (c == node.data)
+                {   // search hit
+                    if (node.value != null)
+                    {   // one result
                         return node.value;
-                    } else {
+                    }
+                    else
+                    {   // multiple results
                         traverse(node, "");
-                        System.out.println(allNames);
                         return 0;
                     }
-
-                } else {   // search miss
+                }
+                else
+                {   // search miss
                     return -1;
                 }
             }
         }
-
-
-
-
-        private void traverse(TSTNode node, String string) {
-
-            if (node != null) {
+    
+        /**
+         *
+         * @param node
+         * @param string
+         */
+        private void traverse(TSTNode node, String string)
+        {
+            if (node != null)
+            {
                 traverse(node.left, string);
-
                 string = string + node.data;
-                if (node.isEnd) { //if last node then add Line ID to Arraylist
+                if (node.value != null)
+                {   //if last node then add Line ID to allNames ArrayList
                     allNames.add(node.value);
                 }
                 traverse(node.mid, string);
                 string = string.substring(0, string.length() - 1);
-
                 traverse(node.right, string);
             }
         }
-
+        
         /**
-         * @param key String to add to TST
+         * @param key   String to add to TST
          * @param value Number to associate with string
          */
         void put(String key, int value)
@@ -198,53 +230,57 @@ public class stopName {
                 return; // don't do anything with invalid input
             }
             key = key.toUpperCase(); // TST is in uppercase
-            //System.out.println(root);
             root = put(root, key, value);
         }
-
+        
         /**
          * recursive version of put()
-         * @param node TST node to continue on from
-         * @param key substring to continue adding
+         *
+         * @param node  TST node to continue on from
+         * @param key   substring to continue adding
          * @param value as above
          */
-        TSTNode put(TSTNode node, String key, int value) {
+        TSTNode put(TSTNode node, String key, int value)
+        {
             char c = key.charAt(0);
-            //System.out.println(key);
-
-            if (key.length() > 1) {
-                if (node == null) {   // fully new string, make new intermediate node and continue down
+            if (key.length() > 1)
+            {
+                if (node == null)
+                {   // fully new string, make new intermediate node and continue down
                     node = new TSTNode(c, null);
                     node.mid = put(node.mid, key.substring(1), value);
-
-                    return node;
-                } else if (c == node.data) {   // identical substring, continue down
-                    node.mid = put(node.mid, key.substring(1), value);
-
-                    return node;
-                } else if (c < node.data) {   // mismatch, continue tree left
-                    node.left = put(node.left, key, value);
-                    return node;
-                } else //if (c > node.data)
-                {   // mismatch, continue tree right
-                    node.right = put(node.right, key, value);
-
                     return node;
                 }
-            } else // on last node to add
-            {
-                if (node == null) {   // new string ends here
-                   values.add(value);
-                    TSTNode x = new TSTNode(c, value);
-                    x.isEnd = true;
-                    return x;
-
-                } else //if (c == node.data) {   // duplicate string, leave unchanged
+                else if (c == node.data)
+                {   // identical substring, continue down
+                    node.mid = put(node.mid, key.substring(1), value);
+                    return node;
+                }
+                else if (c < node.data)
+                {   // mismatch, continue tree left
+                    node.left = put(node.left, key, value);
+                    return node;
+                }
+                else //if (c > node.data)
+                {   // mismatch, continue tree right
+                    node.right = put(node.right, key, value);
                     return node;
                 }
             }
-           // return node;
+            else // on last node to add
+            {
+                if (node == null) // new string ends here
+                {
+                    values.add(value);
+                    return new TSTNode(c, value);
+                }
+                else //if (c == node.data)
+                {   // duplicate string, leave unchanged
+                    return node;
+                }
+            }
+            // return node;
         }
-
     }
+}
 
