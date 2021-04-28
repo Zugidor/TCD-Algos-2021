@@ -31,12 +31,12 @@ public class progressBar {
         //The progress bar width in units of chars
         final int width = 65;
         //We start the progress bar's text
-        System.out.print("\r" + (int)(progressPercentage*100) + "% [");
+        System.out.print("\r" + (int)(progressPercentage*100) + "% ╠");
         //Now print the middle of the progress bar depending on the progress made
         int i = 0;
         while (i <= (int)(progressPercentage * width))
         {
-            System.out.print("#");
+            System.out.print("█");
             i++;
         }
         while (i < width)
@@ -45,6 +45,6 @@ public class progressBar {
             i++;
         }
         //Finally, print out the end of the progress bar and show the progress in terms of the current line we are at.
-        System.out.print("] " + currentValue + "/" + totalValue);
+        System.out.print("╣ " + currentValue + "/" + totalValue);
     }
 }

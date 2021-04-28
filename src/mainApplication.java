@@ -237,7 +237,7 @@ public class mainApplication
                 * @return: Final farewell message before the application exits.
                 */
                 case "4":
-                    System.out.println("\nThank you for using the Vancouver Bus Management System.");
+                    System.out.println("\nThank you for using the Vancouver Bus Management System ☺");
                     runApp = false;
                 break;
                 

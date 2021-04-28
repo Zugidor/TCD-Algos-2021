@@ -208,7 +208,7 @@ public class stopTime
 
             //Get a list of all the stopTime objects in the HashMap with the new arrival time from the latest line.
             //If none exist previously, then make a new array of them that can be used by future lines.
-            List<stopTime> newList = stopTimes.getOrDefault(arrival_time, new ArrayList<stopTime>());
+            List<stopTime> newList = stopTimes.getOrDefault(arrival_time, new ArrayList<>());
 
             //Now we can create the stopTime object since we have all the necessary parameters and we have completed the error-checking for the time values.
             stopTime stopTimeToAdd = new stopTime(trip_id,arrival_time,departure_time,stop_id,stop_Sequence,stop_headsign,pickup_type,drop_off_type,shape_dist_travelled);
