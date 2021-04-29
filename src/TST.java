@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class TST
 {
-    public static ArrayList<Integer> allNames = new ArrayList<>();
+    public static ArrayList<Integer> allNames = new ArrayList<>(); // track LineIDs when traverse()ing
     TSTNode root;
 
     TST() //New empty TST.

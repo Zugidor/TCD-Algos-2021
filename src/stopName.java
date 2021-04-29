@@ -56,7 +56,7 @@ public class stopName
         if(returnValue >= 0)
         {
             ArrayList<String> results = new ArrayList<>();
-            for (int i = 0; i <= TST.allNames.size() - 1; i++)
+            for (int i = 0; i < TST.allNames.size(); i++)
             {
                 String output;
                 int lineNumber = TST.allNames.get(i);
