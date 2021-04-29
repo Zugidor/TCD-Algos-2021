@@ -39,12 +39,16 @@
 
 </p>
 
-## How to view the demo video for this project
+## View the demo video for this project
+To view the demo video for our project, click the video below. Alternatively, you can also download it locally from the <a href="https://github.com/Zugidor/TCD-Algos-2021/tree/main/demo">`./demo`</a> directory or watch in on [YouTube][YouTubeDemo].
 
-[Demo video needs to be completed]
+https://user-images.githubusercontent.com/34750736/116626608-71147080-a943-11eb-9952-46d58057e2ee.mov
+
+
 
 [Zugidor]: https://github.com/zugidor
 [A-Mulvihill]: https://github.com/A-Mulvihill
 [saisankp]: https://github.com/saisankp
 [danieli1245]: https://github.com/danieli1245
 [EclipseConsoleBug]: https://bugs.eclipse.org/bugs/show_bug.cgi?id=76936
+[YouTubeDemo]: https://www.youtube.com/watch?v=F8svyrnqf5A&ab_channel=PrathameshSaiSankar
