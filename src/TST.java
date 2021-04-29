@@ -93,9 +93,21 @@ public class TST
                     return 0;
                 }
             }
-            else
-            {   //Search miss.
-                return -1;
+            else if (c > node.data)
+            {
+                if (node.value == null)
+                {   //Continue right.
+                    return get(node.right, key);
+                }
+                return -1; //Search miss
+            }
+            else //if (c < node.data)
+            {
+                if (node.value == null)
+                {   //Continue left.
+                    return get(node.left, key);
+                }
+                return -1; //Search miss
             }
         }
     }
