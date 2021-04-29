@@ -3,12 +3,10 @@ import java.util.ArrayList;
 public class TST
 {
     public static ArrayList<Integer> allNames = new ArrayList<>();
-    ArrayList<Integer> values; //Dynamic array to track all values in the TST to avoid duplicate values.
     TSTNode root;
 
     TST() //New empty TST.
     {
-        values = new ArrayList<>();
         root = null;
     }
 
@@ -130,7 +128,7 @@ public class TST
      */
     void put(String key, int value)
     {
-        if (key.isEmpty() || values.contains(value))
+        if (key.isEmpty())
         {
             System.out.println("invalid input to TST.put()!");
             return; //Don't do anything with invalid input.
@@ -176,7 +174,6 @@ public class TST
         {
             if (node == null) //New string ends here.
             {
-                values.add(value);
                 return new TSTNode(c, value);
             }
             else
