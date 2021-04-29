@@ -87,12 +87,14 @@ public class mainApplication
                     {   //Receive the two necessary inputs
                         System.out.print("\nPlease enter the name of the first stop: ");
                         String query = scanner.next();
+                        query += scanner.nextLine();
                         ArrayList<String> results = searchTree.queryNameWithReturn(query);
                         if(results != null)
                         {
                             String stopOne = getStop(scanner, results);
                             System.out.print("Please enter the name of the second stop: ");
                             query = scanner.next();
+                            query += scanner.nextLine();
                             results = searchTree.queryNameWithReturn(query);
                             if(results != null)
                             {
@@ -125,26 +127,7 @@ public class mainApplication
                         {   //Error handling
                             System.out.println("No stops match your search");
                         }
-                        boolean quitAnswerGiven = false;
-                        while(!quitAnswerGiven)
-                        {   //Ask the user whether to repeat the query or not
-                            System.out.print("Would you like to search for different stops? [Y/N]: ");
-                            String reply = scanner.next();
-                            if(reply.equalsIgnoreCase("N"))
-                            {
-                                quitAnswerGiven = true;
-                                query1Running = false;
-                            }
-                            else if(reply.equalsIgnoreCase("Y"))
-                            {
-                                quitAnswerGiven = true;
-                            }
-                            else
-                            {
-                                //Error handling
-                                System.out.println("Invalid Input: Please enter \"Y\" if yes or \"N\" if no");
-                            }
-                        }
+                        query1Running = yesNo(scanner, "bus route");
                     }
                 break;
                 
@@ -161,25 +144,7 @@ public class mainApplication
                         searchQuery += scanner.nextLine();
                         //stopName() constructor does all the calculation and output
                         new stopName("input/stops.txt", searchQuery);
-                        boolean exitQuery = true;
-                        while (exitQuery)
-                        {   //Ask user whether they wish to repeat this query
-                            System.out.print("Do you want to search for another Bus Stop? [Y/N]: ");
-                            String userReply = scanner.next();
-                            if (userReply.equalsIgnoreCase("N"))
-                            {
-                                exitQuery = false;
-                                runUserQuery2 = false;
-                            }
-                            else if (userReply.equalsIgnoreCase("Y"))
-                            {
-                                exitQuery = false;
-                            }
-                            else
-                            {   //Error handling
-                                System.out.println("Invalid Input: Please enter \"Y\" if yes or \"N\" if no");
-                            }
-                        }
+                        runUserQuery2 = yesNo(scanner, "bus stop");
                     }
                     break;
                /**
@@ -205,27 +170,7 @@ public class mainApplication
                         {
                             //We have a dedicated function which prints out all the trips with the given arrival time.
                             stopTime.findListOfTripsWithGivenArrivalTime(userArrivalTimeInput, stopTimes);
-                            boolean innerQuery = true;
-                            while (innerQuery)
-                            {
-                                //We then ask the user if they would like to search for another time.
-                                //By now, the Map stopTimes has already been generated, hence the query would be quick.
-                                System.out.print("Do you want to search for another arrival time? [Y/N]: ");
-                                String userReply = scanner.next();
-                                if (userReply.equalsIgnoreCase("N"))
-                                {
-                                    innerQuery = false;
-                                    runUserQuery3 = false;
-                                }
-                                else if (userReply.equalsIgnoreCase("Y"))
-                                {
-                                    innerQuery = false;
-                                }
-                                else
-                                {   //Error handling
-                                    System.out.println("Invalid Input: Please enter \"Y\" if yes or \"N\" if no");
-                                }
-                            }
+                            runUserQuery3 = yesNo(scanner, "arrival time");
                         }
                         else
                         {
@@ -308,11 +253,13 @@ public class mainApplication
         {
             System.out.println("Please Choose 1 of the following: ");
             for(int i = 0; i < results.size(); i++)
-                System.out.println("" + (i+1) + ". " + results.get(i));
+            {
+                System.out.println("" + (i + 1) + ". " + results.get(i));
+            }
             boolean firstStopGiven = false;
             while(!firstStopGiven)
             {
-                System.out.println("Type in the number of the stop you want to choose: ");
+                System.out.print("Type in the number of the stop you want to choose: ");
                 if(scanner.hasNextInt())
                 {
                     int reply = scanner.nextInt();
@@ -321,15 +268,50 @@ public class mainApplication
                         stop = results.get(reply - 1);
                         firstStopGiven = true;
                     }
-                    else System.out.println("Invalid Input: Please choose use one of the numbers found beside the stops listed above");
+                    else
+                    {
+                        System.out.println("Invalid Input: Please choose use one of the numbers found beside the stops listed above");
+                    }
                 }
                 else
                 {
-                    scanner.next();
+                    scanner.nextLine();
                     System.out.println("Invalid Input: Please use numbers only");
                 }
             }
         }
         return stop;
+    }
+    
+    /**
+     * Asks the user if they would like to repeat their query
+     * @param scanner The scanner currently in use to read user input
+     * @param subject The subject of the query the user is looking up
+     * @return boolean reflecting user answer
+     */
+    private static boolean yesNo(Scanner scanner, String subject)
+    {
+        boolean userQuery = true;
+        boolean exitQuery = true;
+        while (exitQuery)
+        {
+            System.out.print("Do you want to search for another " + subject + "? [Y/N]: ");
+            String theReply = scanner.next();
+            theReply += scanner.nextLine();
+            if (theReply.equalsIgnoreCase("N"))
+            {
+                exitQuery = false;
+                userQuery = false;
+            }
+            else if (theReply.equalsIgnoreCase("Y"))
+            {
+                exitQuery = false;
+            }
+            else
+            {   //Error handling
+                System.out.println("Invalid Input: Please enter \"Y\" if yes or \"N\" if no");
+            }
+        }
+        return userQuery;
     }
 }
