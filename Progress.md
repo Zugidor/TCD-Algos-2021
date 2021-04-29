@@ -58,6 +58,10 @@ This markdown file contains the list of things **that have been completed by the
 
 - Part 2 of the project has been completed by `danieli1245`.
 
+- Final additions to Part 4 to cover all error handlig have been added by `Zugidor`.
+
+- Part 3 of the design document has been completed by `saisankp`
+
 - Final additions to the code have been added by `Zugidor` and `saisankp`.
 
 [AcademicCalendar]: https://www.tcd.ie/calendar/academic-year-structure/academic-year-structure.pdf
