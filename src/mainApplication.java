@@ -88,13 +88,13 @@ public class mainApplication
                         System.out.print("\nPlease enter the name of the first stop: ");
                         String query = scanner.next();
                         ArrayList<String> results = searchTree.queryNameWithReturn(query);
-                        if(results != null)
+                        if(results != null) // Check that there was a match
                         {
                             String stopOne = getStop(scanner, results);
                             System.out.print("Please enter the name of the second stop: ");
                             query = scanner.next();
                             results = searchTree.queryNameWithReturn(query);
-                            if(results != null)
+                            if(results != null) // Check that there was a match
                             {
                                 String stopTwo = getStop(scanner, results);
                                 try
@@ -102,7 +102,7 @@ public class mainApplication
                                     //Calculate shortest paths and cost
                                     stopMap.makePaths(stopOne);
                                     Double cost = stopMap.getCost(stopTwo);
-                                    if(cost != null)
+                                    if(cost != null) // Check that a path exists
                                     {
                                         stopMap.getStops(stopTwo, cost);
                                     }
