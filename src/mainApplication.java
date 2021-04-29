@@ -1,5 +1,8 @@
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.Stream;
 
 public class mainApplication
 {
@@ -57,6 +60,9 @@ public class mainApplication
         //After query 3 is requested once, we store the Map with stopTime objects to speed up future requests for it.
         Map<String, List<stopTime>> stopTimes = null;
         boolean query3RunPrev = false;
+        //Ensure that TST is only constructed once, either for the first run of query 1 or the first run of query 2
+        boolean tstExists = false;
+        stopName theTST = null;
 
         //Main application runtime loop.
         while(runApp) 
@@ -81,21 +87,25 @@ public class mainApplication
                     	//We initialize our BusStopMap object only once, as this query is requested for the first time.
                         stopMap = new BusStopMap("input/stops.txt", "input/stop_times.txt", "input/transfers.txt");
                         query1RunPrev = true;
+                        if (!tstExists)
+                        {   //Make TST only once
+                            theTST = new stopName("input/stops.txt");
+                            tstExists = true;
+                        }
                     }
-                    stopName searchTree = new stopName("input/stops.txt");
                     while(query1Running)
                     {   //Receive the two necessary inputs
                         System.out.print("\nPlease enter the name of the first stop: ");
                         String query = scanner.next();
                         query += scanner.nextLine();
-                        ArrayList<String> results = searchTree.queryNameWithReturn(query);
+                        ArrayList<String> results = theTST.queryNameWithReturn(query);
                         if(results != null) // Check that there was a match
                         {
                             String stopOne = getStop(scanner, results);
                             System.out.print("Please enter the name of the second stop: ");
                             query = scanner.next();
                             query += scanner.nextLine();
-                            results = searchTree.queryNameWithReturn(query);
+                            results = theTST.queryNameWithReturn(query);
                             if(results != null) // Check that there was a match
                             {
                                 String stopTwo = getStop(scanner, results);
@@ -142,8 +152,53 @@ public class mainApplication
                         System.out.print("Please Enter the name of the bus stop you would like to search for: ");
                         String searchQuery = scanner.next();
                         searchQuery += scanner.nextLine();
-                        //stopName() constructor does all the calculation and output
-                        new stopName("input/stops.txt", searchQuery);
+                        if (!tstExists)
+                        {   //Make TST once
+                            theTST = new stopName("input/stops.txt");
+                            tstExists = true;
+                        }
+                        int returnValue = theTST.ourTST.get(searchQuery);
+                        if (returnValue >= 0)
+                        {
+                            System.out.println(String.join("", Collections.nCopies(35,"*")) + " SEARCH-RESULTS " + String.join("", Collections.nCopies(35,"*")));
+                            for (int i = 0; i <= stopName.TST.allNames.size() - 1; i++)
+                            {
+                                String output;
+                                int lineNumber = stopName.TST.allNames.get(i);
+                                if(i != 0)
+                                {
+                                    System.out.println(String.join("", Collections.nCopies(86,"*")));
+                                }
+                                System.out.println(String.join("", Collections.nCopies(35," ")) + "Matching stop #" + (i+1));
+                                try (Stream<String> lines = Files.lines(Paths.get(theTST.namesFile)))
+                                {
+                                    output = lines.skip(lineNumber - 1).findFirst().get(); //line number -1 as we skipped the first line when inputting data
+                                    String[] outTokens = output.split(",");
+                                    System.out.println("[+] ID: " + outTokens[0]);
+                                    System.out.println("[+] Code: " + outTokens[1]);
+                                    System.out.println("[+] Name: " + outTokens[2]);
+                                    System.out.println("[+] Description: " + outTokens[3]);
+                                    System.out.println("[+] Latitude: " + outTokens[4]);
+                                    System.out.println("[+] Longitude: " + outTokens[5]);
+                                    System.out.println("[+] Zone ID: " + outTokens[6]);
+                                    System.out.println("[+] URL: " + outTokens[7]);
+                                    System.out.println("[+] Location Type: " + outTokens[8]);
+                                    if (outTokens.length > 9)
+                                    {
+                                        System.out.println("[+] Parent Station: " + outTokens[9]);
+                                    }
+                                    else
+                                    {
+                                        System.out.println("[+] Parent Station: ");
+                                    }
+                                }
+                            }
+                            System.out.println(String.join("", Collections.nCopies(86,"*")));
+                        }
+                        else
+                        {
+                            System.out.println("No search result found, please try again");
+                        }
                         runUserQuery2 = yesNo(scanner, "bus stop");
                     }
                     break;
