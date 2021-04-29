@@ -86,69 +86,17 @@ public class mainApplication
                     while(query1Running)
                     {   //Receive the two necessary inputs
                         System.out.print("\nPlease enter the name of the first stop: ");
-                        String stopOne = null;
-                        String stopTwo = null;
                         String query = scanner.next();
                         ArrayList<String> results = searchTree.queryNameWithReturn(query);
                         if(results != null)
                         {
-                            if(results.size() > 1)
-                            {
-                                System.out.println("Please Choose 1 of the following: ");
-                                for(int i = 0; i < results.size(); i++)
-                                    System.out.println("" + (i+1) + ". " + results.get(i));
-                                boolean firstStopGiven = false;
-                                while(!firstStopGiven)
-                                {
-                                    System.out.println("Type in the number of the stop you want to choose: ");
-                                    if(scanner.hasNextInt())
-                                    {
-                                        int reply = scanner.nextInt();
-                                        if(reply - 1 >= 0 && reply - 1 < results.size())
-                                        {
-                                            stopOne = results.get(reply - 1);
-                                            firstStopGiven = true;
-                                        }
-                                        else System.out.println("Invalid Input: Please choose use one of the numbers found beside the stops listed above");
-                                    }
-                                    else
-                                    {
-                                        scanner.next();
-                                        System.out.println("Invalid Input: Please use numbers only");
-                                    }
-                                }
-                            }
+                            String stopOne = getStop(scanner, results);
                             System.out.print("Please enter the name of the second stop: ");
                             query = scanner.next();
                             results = searchTree.queryNameWithReturn(query);
                             if(results != null)
                             {
-                                if(results.size() > 1)
-                                {
-                                    System.out.println("Please Choose 1 of the following: ");
-                                    for(int i = 0; i < results.size(); i++)
-                                        System.out.println("" + (i+1) + ". " + results.get(i));
-                                    boolean secondStopGiven = false;
-                                    while(!secondStopGiven)
-                                    {
-                                        System.out.println("Type in the number of the stop you want to choose: ");
-                                        if(scanner.hasNextInt())
-                                        {
-                                            int reply = scanner.nextInt();
-                                            if(reply - 1 >= 0 && reply - 1 < results.size())
-                                            {
-                                                stopTwo = results.get(reply - 1);
-                                                secondStopGiven = true;
-                                            }
-                                            else System.out.println("Invalid Input: Please choose use one of the numbers found beside the stops listed above");
-                                        }
-                                        else
-                                        {
-                                            scanner.next();
-                                            System.out.println("Invalid Input: Please use numbers only");
-                                        }
-                                    }
-                                }
+                                String stopTwo = getStop(scanner, results);
                                 try
                                 {
                                     //Calculate shortest paths and cost
@@ -305,7 +253,7 @@ public class mainApplication
         //We are finished taking user input, so we can close the scanner.
         scanner.close();
     }
-
+    
     /*-------------MAIN APPLICATION HELPER METHODS---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
     /**
      * Verifies if a given string is in a valid time format for part 3 of the project.
@@ -345,5 +293,43 @@ public class mainApplication
             }
         }
         return false;
+    }
+    
+    /**
+     * translates user input number into the corresponding stop as displayed in query 1
+     * @param scanner The scanner reading the input
+     * @param results The displayed search results
+     * @return The stop corresponding to the numerical input read by the scanner
+     */
+    private static String getStop(Scanner scanner, ArrayList<String> results)
+    {
+        String stop = null;
+        if(results.size() > 1)
+        {
+            System.out.println("Please Choose 1 of the following: ");
+            for(int i = 0; i < results.size(); i++)
+                System.out.println("" + (i+1) + ". " + results.get(i));
+            boolean firstStopGiven = false;
+            while(!firstStopGiven)
+            {
+                System.out.println("Type in the number of the stop you want to choose: ");
+                if(scanner.hasNextInt())
+                {
+                    int reply = scanner.nextInt();
+                    if(reply - 1 >= 0 && reply - 1 < results.size())
+                    {
+                        stop = results.get(reply - 1);
+                        firstStopGiven = true;
+                    }
+                    else System.out.println("Invalid Input: Please choose use one of the numbers found beside the stops listed above");
+                }
+                else
+                {
+                    scanner.next();
+                    System.out.println("Invalid Input: Please use numbers only");
+                }
+            }
+        }
+        return stop;
     }
 }
