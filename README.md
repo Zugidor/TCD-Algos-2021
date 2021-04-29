@@ -26,7 +26,7 @@
   For communication, we have a group discord server to discuss the project with each other. On a weekly basis, we update the files <a href="https://github.com/Zugidor/TCD-Algos-2021/blob/main/TODO.md"><i>TODO.md</i></a> and <a href="https://github.com/Zugidor/TCD-Algos-2021/blob/main/Progress.md"><i>Progress.md</i></a> to keep track of the work we need to do, and to also keep track of who did what. For more information on the contributions from each member of the team, please refer to <a href="https://github.com/Zugidor/TCD-Algos-2021/graphs/contributors">this repository's contributions page</a>.
 </p>
 
-## How to view previous versions of the Design Document
+## View previous versions of the Design Document
 
 <p align=justify>
   We have made a design document explaining the design decisions we made. This includes describing the choice of data structures and algorithms we used to
