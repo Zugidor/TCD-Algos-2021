@@ -77,7 +77,7 @@ public class mainApplication
             {
                /**
                 * @feature: Part 1 - Find the shortest paths between 2 bus stops entered by the user.
-                * @return: The list of stops en route as well as the associated �cost�.
+                * @return: The list of stops en route as well as the associated "cost".
                 */
                 case "1":
                     boolean query1Running = true;
@@ -149,7 +149,7 @@ public class mainApplication
                     boolean runUserQuery2 = true;
                     while (runUserQuery2)
                     {   //Receive user input
-                        System.out.print("Please Enter the name of the bus stop you would like to search for: ");
+                        System.out.print("Please enter the name of the bus stop you would like to search for: ");
                         String searchQuery = scanner.next();
                         searchQuery += scanner.nextLine();
                         if (!tstExists)
@@ -161,10 +161,10 @@ public class mainApplication
                         if (returnValue >= 0)
                         {
                             System.out.println(String.join("", Collections.nCopies(35,"*")) + " SEARCH-RESULTS " + String.join("", Collections.nCopies(35,"*")));
-                            for (int i = 0; i <= stopName.TST.allNames.size() - 1; i++)
+                            for (int i = 0; i <= TST.allNames.size() - 1; i++)
                             {
                                 String output;
-                                int lineNumber = stopName.TST.allNames.get(i);
+                                int lineNumber = TST.allNames.get(i);
                                 if(i != 0)
                                 {
                                     System.out.println(String.join("", Collections.nCopies(86,"*")));
@@ -174,6 +174,11 @@ public class mainApplication
                                 {
                                     output = lines.skip(lineNumber - 1).findFirst().get(); //line number -1 as we skipped the first line when inputting data
                                     String[] outTokens = output.split(",");
+                                    for(int j = 0; j < outTokens.length; j++){
+                                        if(outTokens[j].equals(" ")){
+                                            outTokens[j] = "null";
+                                        }
+                                    }
                                     System.out.println("[+] ID: " + outTokens[0]);
                                     System.out.println("[+] Code: " + outTokens[1]);
                                     System.out.println("[+] Name: " + outTokens[2]);
@@ -189,7 +194,7 @@ public class mainApplication
                                     }
                                     else
                                     {
-                                        System.out.println("[+] Parent Station: ");
+                                        System.out.println("[+] Parent Station: null");
                                     }
                                 }
                             }
