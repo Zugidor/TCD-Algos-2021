@@ -320,9 +320,11 @@ public class mainApplication
             while(!firstStopGiven)
             {
                 System.out.print("Type in the number of the stop you want to choose: ");
-                if(scanner.hasNextInt())
+                String s = scanner.next();
+                s += scanner.nextLine();
+                if(s.matches("[0-9]*")) //If input is some integer
                 {
-                    int reply = scanner.nextInt();
+                    int reply = Integer.parseInt(s);
                     if(reply - 1 >= 0 && reply - 1 < results.size())
                     {
                         stop = results.get(reply - 1);
@@ -335,7 +337,6 @@ public class mainApplication
                 }
                 else
                 {
-                    scanner.nextLine();
                     System.out.println("Invalid Input: Please use numbers only");
                 }
             }
