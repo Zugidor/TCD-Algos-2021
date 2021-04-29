@@ -1,5 +1,8 @@
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.Stream;
 
 public class mainApplication
 {
@@ -142,11 +145,53 @@ public class mainApplication
                         System.out.print("Please enter the name of the bus stop you would like to search for: ");
                         String searchQuery = scanner.next();
                         searchQuery += scanner.nextLine();
-                        //stopName() constructor does all the calculation and output
-                        new stopName("input/stops.txt", searchQuery);
+                        //Make TST and calculate output
+                        stopName q2TST = new stopName("input/stops.txt");
+                        int returnValue = q2TST.ourTST.get(searchQuery);
+                        if (returnValue >= 0)
+                        {
+                            System.out.println(String.join("", Collections.nCopies(35,"*")) + " SEARCH-RESULTS " + String.join("", Collections.nCopies(35,"*")));
+                            for (int i = 0; i <= TST.allNames.size() - 1; i++)
+                            {
+                                String output;
+                                int lineNumber = TST.allNames.get(i);
+                                if(i != 0)
+                                {
+                                    System.out.println(String.join("", Collections.nCopies(86,"*")));
+                                }
+                                System.out.println(String.join("", Collections.nCopies(35," ")) + "Matching stop #" + (i+1));
+                                try (Stream<String> lines = Files.lines(Paths.get(q2TST.namesFile)))
+                                {
+                                    output = lines.skip(lineNumber - 1).findFirst().get(); //line number -1 as we skipped the first line when inputting data
+                                    String[] outTokens = output.split(",");
+                                    System.out.println("[+] ID: " + outTokens[0]);
+                                    System.out.println("[+] Code: " + outTokens[1]);
+                                    System.out.println("[+] Name: " + outTokens[2]);
+                                    System.out.println("[+] Description: " + outTokens[3]);
+                                    System.out.println("[+] Latitude: " + outTokens[4]);
+                                    System.out.println("[+] Longitude: " + outTokens[5]);
+                                    System.out.println("[+] Zone ID: " + outTokens[6]);
+                                    System.out.println("[+] URL: " + outTokens[7]);
+                                    System.out.println("[+] Location Type: " + outTokens[8]);
+                                    if (outTokens.length > 9)
+                                    {
+                                        System.out.println("[+] Parent Station: " + outTokens[9]);
+                                    }
+                                    else
+                                    {
+                                        System.out.println("[+] Parent Station: ");
+                                    }
+                                }
+                            }
+                            System.out.println(String.join("", Collections.nCopies(86,"*")));
+                        }
+                        else
+                        {
+                            System.out.println("No search result found, please try again");
+                        }
                         runUserQuery2 = yesNo(scanner, "bus stop");
                     }
-                    break;
+                break;
                /**
                 * @feature: Part 3 - Let the user search for all trips with a given arrival time.
                 * @return: Full details of all trips matching the criteria sorted by Trip ID.

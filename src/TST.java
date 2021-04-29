@@ -28,14 +28,6 @@ public class TST
         }
     }
     /*-------------TERNARY SEARCH TREE HELPER METHODS---------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-    /**
-     * Clears all names in the ternary search tree.
-     * @return null.
-     */
-    void clearAllNames()
-    {
-        allNames.clear();
-    }
 
     /**
      * @param key String we are looking for
