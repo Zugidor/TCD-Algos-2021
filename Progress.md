@@ -64,10 +64,11 @@ This markdown file contains the list of things **that have been completed by the
 
 - Final additions to the code have been added by `Zugidor` and `saisankp`.
 
-- The demo video was recorded by `Zugidor` and edited by `saisankp`.
+- Our [demo video][YouTubeDemo] was recorded by `Zugidor` and edited by `saisankp`.
 
 [AcademicCalendar]: https://www.tcd.ie/calendar/academic-year-structure/academic-year-structure.pdf
 [TODO]: https://github.com/Zugidor/TCD-Algos-2021/blob/main/TODO.md
 [MIT]: https://opensource.org/licenses/MIT
 [README]: https://github.com/Zugidor/TCD-Algos-2021/blob/main/README.md
 [ProgressVideo]: https://youtu.be/TKKlxEImqRU
+[YouTubeDemo]: https://www.youtube.com/watch?v=F8svyrnqf5A&ab_channel=PrathameshSaiSankar
