@@ -159,7 +159,7 @@ public class BusStopMap
 
     /**
      * Prints out all the stops in the shortest path between two bus stops.
-     * @param: The ID of the connecting bus stop, and the cost.
+     * @param: The name of the connecting bus stop, and the cost.
      * @return: void.
      */
     public void getStops(String destinationStop, double cost)

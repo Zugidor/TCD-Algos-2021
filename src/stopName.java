@@ -111,7 +111,7 @@ public class stopName
         }
     }
 
-    // Second constructor for simply creating the TST. Used for Query 1 for selecting stops
+    // Second constructor for creating the TST without a query. Used for part 1 of the project for selecting stops
     stopName(String filename) throws IOException
     {
         //TST ourTST = new TST(); // make our Ternary Search Tree
@@ -145,6 +145,11 @@ public class stopName
         }
     }
 
+    /**
+     * Gets a list of stops that match or whose first few letters match the input
+     * @param: The string we are looking for
+     * @return: An ArrayList containing the names of all matches, or null if no matches
+     */
     public ArrayList<String> queryNameWithReturn(String query) throws IOException
     {
         int returnValue = ourTST.get(query);
