@@ -82,24 +82,81 @@ public class mainApplication
                         stopMap = new BusStopMap("input/stops.txt", "input/stop_times.txt", "input/transfers.txt");
                         query1RunPrev = true;
                     }
+                    stopName searchTree = new stopName("input/stops.txt");
                     while(query1Running)
                     {   //Receive the two necessary inputs
-                        System.out.print("\nPlease enter the ID of the first stop: ");
-                        if(scanner.hasNextInt())
+                        System.out.print("\nPlease enter the name of the first stop: ");
+                        String stopOne = null;
+                        String stopTwo = null;
+                        String query = scanner.next();
+                        ArrayList<String> results = searchTree.queryNameWithReturn(query);
+                        if(results != null)
                         {
-                            int fromID = scanner.nextInt();
-                            System.out.print("Please enter the ID of the second stop: ");
-                            if(scanner.hasNextInt())
+                            if(results.size() > 1)
                             {
-                                int toID = scanner.nextInt();
+                                System.out.println("Please Choose 1 of the following: ");
+                                for(int i = 0; i < results.size(); i++)
+                                    System.out.println("" + (i+1) + ". " + results.get(i));
+                                boolean firstStopGiven = false;
+                                while(!firstStopGiven)
+                                {
+                                    System.out.println("Type in the number of the stop you want to choose: ");
+                                    if(scanner.hasNextInt())
+                                    {
+                                        int reply = scanner.nextInt();
+                                        if(reply - 1 >= 0 && reply - 1 < results.size())
+                                        {
+                                            stopOne = results.get(reply - 1);
+                                            firstStopGiven = true;
+                                        }
+                                        else System.out.println("Invalid Input: Please choose use one of the numbers found beside the stops listed above");
+                                    }
+                                    else
+                                    {
+                                        scanner.next();
+                                        System.out.println("Invalid Input: Please use numbers only");
+                                    }
+                                }
+                            }
+                            System.out.print("Please enter the name of the second stop: ");
+                            query = scanner.next();
+                            results = searchTree.queryNameWithReturn(query);
+                            if(results != null)
+                            {
+                                if(results.size() > 1)
+                                {
+                                    System.out.println("Please Choose 1 of the following: ");
+                                    for(int i = 0; i < results.size(); i++)
+                                        System.out.println("" + (i+1) + ". " + results.get(i));
+                                    boolean secondStopGiven = false;
+                                    while(!secondStopGiven)
+                                    {
+                                        System.out.println("Type in the number of the stop you want to choose: ");
+                                        if(scanner.hasNextInt())
+                                        {
+                                            int reply = scanner.nextInt();
+                                            if(reply - 1 >= 0 && reply - 1 < results.size())
+                                            {
+                                                stopTwo = results.get(reply - 1);
+                                                secondStopGiven = true;
+                                            }
+                                            else System.out.println("Invalid Input: Please choose use one of the numbers found beside the stops listed above");
+                                        }
+                                        else
+                                        {
+                                            scanner.next();
+                                            System.out.println("Invalid Input: Please use numbers only");
+                                        }
+                                    }
+                                }
                                 try
                                 {
                                     //Calculate shortest paths and cost
-                                    stopMap.makePaths(fromID);
-                                    Double cost = stopMap.getCost(toID);
+                                    stopMap.makePaths(stopOne);
+                                    Double cost = stopMap.getCost(stopTwo);
                                     if(cost != null)
                                     {
-                                        stopMap.getStops(toID, cost);
+                                        stopMap.getStops(stopTwo, cost);
                                     }
                                     else
                                     {   //No path found
@@ -108,19 +165,17 @@ public class mainApplication
                                 }
                                 catch(IllegalArgumentException e)
                                 {   //Error handling
-                                    System.out.println("Invalid Input: One or both of the given IDs do not match any stop");
+                                    System.out.println("Error: Names not found in BusStopMap");
                                 }
                             }
                             else
                             {   //Error handling
-                                System.out.println("Invalid Input: ID must be a number");
-                                scanner.next();
+                                System.out.println("No stops match your search");
                             }
                         }
                         else
                         {   //Error handling
-                            System.out.println("Invalid Input: ID must be a number");
-                            scanner.next();
+                            System.out.println("No stops match your search");
                         }
                         boolean quitAnswerGiven = false;
                         while(!quitAnswerGiven)

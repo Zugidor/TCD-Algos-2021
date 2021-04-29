@@ -144,12 +144,16 @@ public class BusStopMap
     /*-------------BUS STOP MAP HELPER METHODS-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
     /**
      * Gets the cost of going to a connecting bus stop.
-     * @param: The ID of the connecting bus stop.
+     * @param: The name of the connecting bus stop.
      * @return: A double representing the cost to the bus stop.
      */
-    public Double getCost(int toID)
+    public Double getCost(String destinationStop)
     {
-        if(stopIndexes.containsKey(toID)) return sps.distTo(stopIndexes.get(toID));
+        if(stops.containsKey(destinationStop))
+        {
+            int stopID = stops.get(destinationStop);
+            return sps.distTo(stopIndexes.get(stopID));
+        }
         else throw new IllegalArgumentException();
     }
 
@@ -158,11 +162,12 @@ public class BusStopMap
      * @param: The ID of the connecting bus stop, and the cost.
      * @return: void.
      */
-    public void getStops(int toID, double cost)
+    public void getStops(String destinationStop, double cost)
     {
-        if(stopIndexes.containsKey(toID))
+        if(stops.containsKey(destinationStop))
         {
-            ArrayList<Integer> vertexPath = sps.getPath(stopIndexes.get(toID));
+            int stopID = stops.get(destinationStop);
+            ArrayList<Integer> vertexPath = sps.getPath(stopIndexes.get(stopID));
             if (vertexPath.size() > 0)
             {
                 ArrayList<String> stopPath = new ArrayList<String>();
@@ -190,12 +195,16 @@ public class BusStopMap
 
     /**
      * Uses Dijkstra's algorithm to find the shortest paths to every other bus stop on the map from a source bus stop.
-     * @param: The ID of the source bus stop.
+     * @param: The name of the source bus stop.
      * @return: void.
      */
-    public void makePaths(int fromID)
+    public void makePaths(String sourceStop)
     {
-        if(stopIndexes.containsKey(fromID)) sps = new DijkstraShortestPaths(this, stopIndexes.get(fromID));
+        if(stops.containsKey(sourceStop))
+        {
+            int stopID = stops.get(sourceStop);
+            sps = new DijkstraShortestPaths(this, stopIndexes.get(stopID));
+        }
         else throw new IllegalArgumentException();
     }
     

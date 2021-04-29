@@ -11,9 +11,16 @@ import java.util.stream.*;
 
 public class stopName
 {
+    TST ourTST;
+    String namesFile;
+
     stopName(String filename, String Query) throws IOException
     {
-        TST ourTST = new TST(); // make our Ternary Search Tree
+        //TST ourTST = new TST(); // make our Ternary Search Tree
+
+        ourTST = new TST(); // make our Ternary Search Tree
+        namesFile = filename;
+
         int lineID = 2; // Start at the second line to ignore the definitions line in stops.txt
         TST.allNames.clear();
         BufferedReader reader = new BufferedReader(new FileReader(filename));
@@ -103,6 +110,63 @@ public class stopName
             System.out.println("No search result found, please try again");
         }
     }
+
+    // Second constructor for simply creating the TST. Used for Query 1 for selecting stops
+    stopName(String filename) throws IOException
+    {
+        //TST ourTST = new TST(); // make our Ternary Search Tree
+
+        ourTST = new TST(); // make our Ternary Search Tree
+        namesFile = filename;
+
+        int lineID = 2; // Start at the second line to ignore the definitions line in stops.txt
+        TST.allNames.clear();
+        BufferedReader reader = new BufferedReader(new FileReader(filename));
+        reader.readLine(); // this will read the first line and skip it
+        String thisLine; //starting loop from 2nd line
+        while ((thisLine = reader.readLine()) != null)
+        {
+            String[] tokens = thisLine.split(",");
+            String stopNameUnformatted = tokens[2];
+            String[] test = stopNameUnformatted.split(" ");
+            List<String> t = Arrays.asList(test);
+            ArrayList<String> temp = new ArrayList<>(t);
+            while (temp.get(0).equals("NB") || temp.get(0).equals("SB") ||
+                    temp.get(0).equals("WB") || temp.get(0).equals("EB") ||
+                    temp.get(0).equals("FLAGSTOP"))
+            {
+                String s = temp.remove(0);
+                temp.add(s);
+            }
+            String stopNameFormatted = temp.toString();
+            stopNameFormatted = stopNameFormatted.replaceAll("\\p{P}", ""); // remove all punctuation added by toString()
+            ourTST.put(stopNameFormatted, lineID); //puts stop name into TST along with line #
+            lineID++;
+        }
+    }
+
+    public ArrayList<String> queryNameWithReturn(String query) throws IOException
+    {
+        int returnValue = ourTST.get(query);
+        if(returnValue >= 0)
+        {
+            ArrayList<String> results = new ArrayList<>();
+            for (int i = 0; i <= TST.allNames.size() - 1; i++)
+            {
+                String output;
+                int lineNumber = TST.allNames.get(i);
+                try (Stream<String> lines = Files.lines(Paths.get(namesFile)))
+                {
+                    output = lines.skip(lineNumber - 1).findFirst().get(); //line number -1 as we skipped the first line when inputting data
+                    String[] outTokens = output.split(",");
+                    results.add(outTokens[2]);
+                }
+            }
+            ourTST.clearAllNames();
+            return results;
+        }
+        else return null;
+    }
     
     // Ternary Search Tree subclass
     protected static class TST
@@ -132,6 +196,9 @@ public class stopName
                 right = null;
             }
         }
+
+        void clearAllNames()
+        { allNames.clear(); }
         
         /**
          * @param key String we are looking for
