@@ -45,11 +45,11 @@ criteria sorted by Trip ID.
 
 ## Academic Calendar Week 35
 
-- [ ] Finish all parts of the assignment.
+- [x] Finish all parts of the assignment.
 
 - [ ] Finish the design document.
 
-- [ ] Record the demo video.
+- [x] Record the demo video.
 
 - [ ] Record summaries of individual contributions in Readme.txt
 
