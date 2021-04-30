@@ -20,7 +20,7 @@ public class BusStopMap
     private DijkstraShortestPaths sps;
     
     //Constructor for a BusStopMap object, with parameters being paths to all three input files.
-    public BusStopMap(String stopsFile, String stopTimesFile, String transfersFile) throws IOException
+    protected BusStopMap(String stopsFile, String stopTimesFile, String transfersFile) throws IOException
     {
         stops = new HashMap<String, Integer>();
         stopIndexes = new HashMap<Integer, Integer>();
@@ -147,7 +147,7 @@ public class BusStopMap
      * @param: The name of the connecting bus stop.
      * @return: A double representing the cost to the bus stop.
      */
-    public Double getCost(String destinationStop)
+    protected Double getCost(String destinationStop)
     {
         if(stops.containsKey(destinationStop))
         {
@@ -162,7 +162,7 @@ public class BusStopMap
      * @param: The name of the connecting bus stop, and the cost.
      * @return: void.
      */
-    public void getStops(String destinationStop, double cost)
+    protected void getStops(String destinationStop, double cost)
     {
         if(stops.containsKey(destinationStop))
         {
@@ -198,7 +198,7 @@ public class BusStopMap
      * @param: The name of the source bus stop.
      * @return: void.
      */
-    public void makePaths(String sourceStop)
+    protected void makePaths(String sourceStop)
     {
         if(stops.containsKey(sourceStop))
         {
@@ -213,7 +213,7 @@ public class BusStopMap
      * @param: null
      * @return: An integer V.
      */
-    public int V()
+    protected int V()
     { return V; }
 
     /**
@@ -221,6 +221,6 @@ public class BusStopMap
      * @param: The source vertex we want to find an adjacent vertex to.
      * @return: An Array-list of weighted edges which represent the adjacent vertices.
      */
-    public ArrayList<WeightedEdge> adjacent(int vertex)
+    protected ArrayList<WeightedEdge> adjacent(int vertex)
     { return adj[vertex]; }
 }

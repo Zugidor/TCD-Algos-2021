@@ -6,7 +6,7 @@ public class WeightedEdge
     private double weight;
 
     //Constructor for a WeightedEdge object, with parameters being the source vertex, the destination vertex, and the weight between them.
-    WeightedEdge(int v, int w, double weight)
+    protected WeightedEdge(int v, int w, double weight)
     {
         this.v = v;
         this.w = w;
@@ -19,7 +19,7 @@ public class WeightedEdge
      * @param: null.
      * @return: The weight of the weighted edge.
      */
-    double weight()
+    protected double weight()
     {
         return weight;
     }
@@ -29,7 +29,7 @@ public class WeightedEdge
      * @param: null.
      * @return: The source vertex in the weighted edge.
      */
-    int from()
+    protected int from()
     { 
     	return v; 
     }
@@ -39,7 +39,7 @@ public class WeightedEdge
      * @param: null.
      * @return: The destination vertex in the weighted edge.
      */
-    int to()
+    protected int to()
     { 
     	return w; 
     }

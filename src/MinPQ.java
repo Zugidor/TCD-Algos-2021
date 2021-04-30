@@ -6,7 +6,7 @@ public class MinPQ
     private int size;
 
     //Constructor for a MinPQ object, with the capacity of the queue as a parameter.
-    public MinPQ(int capacity)
+    protected MinPQ(int capacity)
     {
         arr = new Node[capacity+1];
         for(int i = 0; i < arr.length; i++)
@@ -23,7 +23,7 @@ public class MinPQ
      * @param: The distance and vertex we want to add to the queue.
      * @return: void.
      */
-    public void insert(double d, int v)
+    protected void insert(double d, int v)
     {
         if(++size >= arr.length) 
         {
@@ -38,7 +38,7 @@ public class MinPQ
      * @param: null.
      * @return: An integer representing the next vertex.
      */
-    public int nextVertex()
+    protected int nextVertex()
     {
         int nextV = arr[1].vertex;
         arr[1] = arr[size--];
@@ -56,7 +56,7 @@ public class MinPQ
      * @param: null.
      * @return: A boolean representing if the minimum priority queue is empty or not.
      */
-    public boolean isEmpty()
+    protected boolean isEmpty()
     { 
     	return size == 0;
     }
