@@ -42,3 +42,5 @@ Summary of contributions:
 	• Contributed to the final clean-up of the code.
 
 - Daniel Ilyin:
+	• Major contribution to part 2
+	• Finished writing up the design decisions for part 2 of the project.
