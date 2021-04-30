@@ -60,11 +60,17 @@ This markdown file contains the list of things **that have been completed by the
 
 - Final additions to Part 4 to cover all error handling have been added by `Zugidor`.
 
-- Part 3 of the design document has been completed by `saisankp`
+- Part 3 of the design document has been completed by `saisankp`.
+
+- Part 4 of the design document has been completed by `Zugidor`.
 
 - Final additions to the code have been added by `Zugidor` and `saisankp`.
 
 - Our [demo video][YouTubeDemo] was recorded by `Zugidor` and edited by `saisankp`.
+
+- Readme.txt has been completed by all members.
+
+- Submission.zip has been filled with all four deliverables.
 
 [AcademicCalendar]: https://www.tcd.ie/calendar/academic-year-structure/academic-year-structure.pdf
 [TODO]: https://github.com/Zugidor/TCD-Algos-2021/blob/main/TODO.md

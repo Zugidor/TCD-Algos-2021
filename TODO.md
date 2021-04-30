@@ -47,13 +47,13 @@ criteria sorted by Trip ID.
 
 - [x] Finish all parts of the assignment.
 
-- [ ] Finish the design document.
+- [x] Finish the design document.
 
 - [x] Record the demo video.
 
-- [ ] Record summaries of individual contributions in Readme.txt
+- [x] Record summaries of individual contributions in Readme.txt
 
-- [ ] Fill and submit the Submission.zip file on Blackboard.
+- [x] Fill and submit the Submission.zip file on Blackboard.
 
 [Progress.MD]: https://github.com/Zugidor/TCD-Algos-2021/blob/main/Progress.md
 [AcademicCalendar]: https://www.tcd.ie/calendar/academic-year-structure/academic-year-structure.pdf
