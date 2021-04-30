@@ -28,6 +28,8 @@ Summary of contributions:
 	• Wrote up design decisions for part 4 and a bit of part 2 in the design document.
 
 - Adam Bewick Mulvihill:
+	• Major contribution to part 1 (Selection of stops by name, edge-weighted digraph of stops, Dijkstra)
+	• Finished writing up the design decisions for part 1 of the project
 
 - Prathamesh Sai:
 	• Added an MIT License to the repository.
