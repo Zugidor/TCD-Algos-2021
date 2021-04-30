@@ -8,7 +8,7 @@ public class DijkstraShortestPaths
     private Integer[] edgeTo;
 
     //Constructor for a DijkstraShortestPaths object with parameters being the graph in question, and an integer s.
-    public DijkstraShortestPaths(BusStopMap graph, int s)
+    protected DijkstraShortestPaths(BusStopMap graph, int s)
     {
         g = graph;
 
@@ -78,7 +78,7 @@ public class DijkstraShortestPaths
      * @param: The vertex we want to find the distance to.
      * @return: A double representing the distance to the vertex given as parameter.
      */
-    public Double distTo(int v)
+    protected Double distTo(int v)
     { return distTo[v]; }
 
     /**
@@ -86,7 +86,7 @@ public class DijkstraShortestPaths
      * @param: The vertex we want to get the path for.
      * @return: An Array-list of integers in reverse order representing the path with the destination vertex first and source last.
      */
-    public ArrayList<Integer> getPath(int v)
+    protected ArrayList<Integer> getPath(int v)
     {
         ArrayList<Integer> result = new ArrayList<Integer>();
         int vertex = v;

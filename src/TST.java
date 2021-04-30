@@ -2,36 +2,23 @@ import java.util.ArrayList;
 
 public class TST
 {
-    public static ArrayList<Integer> allNames = new ArrayList<>(); // track LineIDs when traverse()ing
+	//Variables which we need for our Ternary Search Tree.
+    public static ArrayList<Integer> allNames = new ArrayList<>(); //Track LineIDs while you traverse().
     TSTNode root;
 
-    TST() //New empty TST.
+    //The constructor for a new empty TST object.
+    protected TST()
     {
         root = null;
     }
 
-    static class TSTNode
-    {
-        char data;
-        Integer value;
-        TSTNode left, mid, right;
-
-        TSTNode(char data, Integer value) // new node with null links
-        {
-            this.value = value;
-            this.data = data;
-            left = null;
-            mid = null;
-            right = null;
-        }
-    }
     /*-------------TERNARY SEARCH TREE HELPER METHODS---------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
     /**
-     * @param key String we are looking for
-     * @return value associated with the key if found, -1 if not found
+     * @param: String we are looking for.
+     * @return: Associated with the key if found, -1 if not found.
      */
-    int get(String key)
+    protected int get(String key)
     {
         if (key.isEmpty())
         {
@@ -43,25 +30,28 @@ public class TST
 
     /**
      * recursive version of get()
-     * @param node TST node to continue on from
-     * @param key  String we are searching for
-     * @return as above
+     * @param: TST node to continue on from.
+     * @param: String we are searching for.
+     * @return: Associated with the key if found, -1 if not found.
      */
-    int get(TSTNode node, String key)
+    protected int get(TSTNode node, String key)
     {
         char c = key.charAt(0);
         if (node == null)
-        {   //Search miss.
+        {   
+        	//Search miss.
             return -1;
         }
         else if (key.length() > 1)
         {
             if (c == node.data)
-            {   //Continue down.
+            {   
+            	//Continue down.
                 return get(node.mid, key.substring(1));
             }
             else if (c > node.data)
-            {   //Continue right.
+            {   
+            	//Continue right.
                 return get(node.right, key);
             }
             else
@@ -70,15 +60,19 @@ public class TST
             }
         }
         else
-        {   //Last node.
+        {   
+        	//Last node.
             if (c == node.data)
-            {   //Search hit.
+            {   
+            	//Search hit.
                 if (node.value != null)
-                {   //One result.
+                {   
+                	//One result.
                     return node.value;
                 }
                 else
-                {   //Multiple results.
+                {   
+                	//Multiple results.
                     traverse(node, "");
                     return 0;
                 }
@@ -86,25 +80,30 @@ public class TST
             else if (c > node.data)
             {
                 if (node.value == null)
-                {   //Continue right.
+                {   
+                	//Continue right.
                     return get(node.right, key);
                 }
-                return -1; //Search miss
+                //Search miss
+                return -1; 
             }
-            else //if (c < node.data)
+            else
             {
                 if (node.value == null)
-                {   //Continue left.
+                {   
+                	//Continue left.
                     return get(node.left, key);
                 }
-                return -1; //Search miss
+                //Search miss
+                return -1;
             }
         }
     }
 
     /**
-     * @param node
-     * @param string
+     * @param: Node we want to traverse from.
+     * @param: String we want to search from.
+     * @return: void.
      */
     private void traverse(TSTNode node, String string)
     {
@@ -113,7 +112,8 @@ public class TST
             traverse(node.left, string);
             string = string + node.data;
             if (node.value != null)
-            {   //If last node then add Line ID to allNames ArrayList.
+            {   
+            	//If last node then add Line ID to allNames ArrayList.
                 allNames.add(node.value);
             }
             traverse(node.mid, string);
@@ -123,61 +123,72 @@ public class TST
     }
 
     /**
-     * @param key String to add to TST
-     * @param value Number to associate with string
+     * @param: String to add to TST.
+     * @param: Value Number to associate with string.
+     * @return: void.
      */
-    void put(String key, int value)
+    protected void put(String key, int value)
     {
         if (key.isEmpty())
         {
+        	//Don't do anything with invalid input.
             System.out.println("invalid input to TST.put()!");
-            return; //Don't do anything with invalid input.
+            return;
         }
-        key = key.toUpperCase(); //TST is in uppercase.
+        //TST is in upper-case.
+        key = key.toUpperCase();
         root = put(root, key, value);
     }
 
     /**
      * recursive version of put()
-     * @param node  TST node to continue on from
-     * @param key   substring to continue adding
-     * @param value as above
+     * @param: TST node to continue on from.
+     * @param: Substring to continue adding.
+     * @param: Value Number to associate with string.
+     * @return: A TSTNode.
      */
-    TSTNode put(TSTNode node, String key, int value)
+    protected TSTNode put(TSTNode node, String key, int value)
     {
         char c = key.charAt(0);
         if (key.length() > 1)
         {
             if (node == null)
-            {   //Fully new string, make new intermediate node and continue down.
+            {   
+            	//Fully new string, make new intermediate node and continue down.
                 node = new TSTNode(c, null);
                 node.mid = put(node.mid, key.substring(1), value);
                 return node;
             }
             else if (c == node.data)
-            {   //Identical substring, continue down.
+            {   
+            	//Identical substring, continue down.
                 node.mid = put(node.mid, key.substring(1), value);
                 return node;
             }
             else if (c < node.data)
-            {   //Mismatch, continue tree left.
+            {   
+            	//Mismatch, continue tree left.
                 node.left = put(node.left, key, value);
                 return node;
             }
             else
-            {   //Mismatch, continue tree right.
+            {   
+            	//Mismatch, continue tree right.
                 node.right = put(node.right, key, value);
                 return node;
             }
         }
-        else //On last node to add.
+        //On last node to add.
+        else
         {
-            if (node == null) //New string ends here.
+        	//New string ends here.
+            if (node == null)
             {
                 return new TSTNode(c, value);
             }
             else
-            {   //Duplicate string, leave unchanged.
+            {   
+            	//Duplicate string, leave unchanged.
                 return node;
             }
         }

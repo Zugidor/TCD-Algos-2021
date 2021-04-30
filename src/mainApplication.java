@@ -87,7 +87,8 @@ public class mainApplication
                     }
                     stopName searchTree = new stopName("input/stops.txt");
                     while(query1Running)
-                    {   //Receive the two necessary inputs
+                    {   
+                    	//Receive the two necessary inputs
                         System.out.print("\nPlease enter the name of the first stop: ");
                         String query = scanner.next();
                         query += scanner.nextLine();
@@ -99,35 +100,40 @@ public class mainApplication
                             query = scanner.next();
                             query += scanner.nextLine();
                             results = searchTree.queryNameWithReturn(query);
-                            if(results != null) // Check that there was a match
+                            //Check that there was a match.
+                            if(results != null)
                             {
                                 String stopTwo = getStop(scanner, results);
                                 try
                                 {
-                                    //Calculate shortest paths and cost
+                                    //Calculate shortest paths and cost.
                                     stopMap.makePaths(stopOne);
                                     Double cost = stopMap.getCost(stopTwo);
-                                    if(cost != null) // Check that a path exists
+                                    //Check that a path exists.
+                                    if(cost != null)
                                     {
                                         stopMap.getStops(stopTwo, cost);
                                     }
                                     else
-                                    {   //No path found
+                                    {   
+                                    	//No path found.
                                         System.out.println("No route exists between these two stops");
                                     }
                                 }
                                 catch(IllegalArgumentException e)
-                                {   //Error handling
+                                {   
+                                	//Error handling.
                                     System.out.println("Error: Names not found in BusStopMap");
                                 }
                             }
                             else
-                            {   //Error handling
+                            {   
+                            	//Error handling.
                                 System.out.println("No stops match your search");
                             }
                         }
                         else
-                        {   //Error handling
+                        {   //Error handling.
                             System.out.println("No stops match your search");
                         }
                         query1Running = yesNo(scanner, "bus route");
@@ -141,49 +147,17 @@ public class mainApplication
                 case "2":
                     boolean runUserQuery2 = true;
                     while (runUserQuery2)
-                    {   //Receive user input
+                    {   //Receive the user input.
                         System.out.print("Please enter the name of the bus stop you would like to search for: ");
                         String searchQuery = scanner.next();
                         searchQuery += scanner.nextLine();
-                        //Make TST and calculate output
+                        //Make a TST and calculate output.
                         stopName q2TST = new stopName("input/stops.txt");
                         int returnValue = q2TST.ourTST.get(searchQuery);
                         if (returnValue >= 0)
                         {
-                            System.out.println(String.join("", Collections.nCopies(35,"*")) + " SEARCH-RESULTS " + String.join("", Collections.nCopies(35,"*")));
-                            for (int i = 0; i <= TST.allNames.size() - 1; i++)
-                            {
-                                String output;
-                                int lineNumber = TST.allNames.get(i);
-                                if(i != 0)
-                                {
-                                    System.out.println(String.join("", Collections.nCopies(86,"*")));
-                                }
-                                System.out.println(String.join("", Collections.nCopies(35," ")) + "Matching stop #" + (i+1));
-                                try (Stream<String> lines = Files.lines(Paths.get(q2TST.namesFile)))
-                                {
-                                    output = lines.skip(lineNumber - 1).findFirst().get(); //line number -1 as we skipped the first line when inputting data
-                                    String[] outTokens = output.split(",");
-                                    System.out.println("[+] ID: " + outTokens[0]);
-                                    System.out.println("[+] Code: " + outTokens[1]);
-                                    System.out.println("[+] Name: " + outTokens[2]);
-                                    System.out.println("[+] Description: " + outTokens[3]);
-                                    System.out.println("[+] Latitude: " + outTokens[4]);
-                                    System.out.println("[+] Longitude: " + outTokens[5]);
-                                    System.out.println("[+] Zone ID: " + outTokens[6]);
-                                    System.out.println("[+] URL: " + outTokens[7]);
-                                    System.out.println("[+] Location Type: " + outTokens[8]);
-                                    if (outTokens.length > 9)
-                                    {
-                                        System.out.println("[+] Parent Station: " + outTokens[9]);
-                                    }
-                                    else
-                                    {
-                                        System.out.println("[+] Parent Station: ");
-                                    }
-                                }
-                            }
-                            System.out.println(String.join("", Collections.nCopies(86,"*")));
+                        	//We have a dedicated function to print out the stop information for each stop matching the search criteria.
+                        	stopName.printStopNamesMatchingCriteria(q2TST);
                         }
                         else
                         {
@@ -192,6 +166,7 @@ public class mainApplication
                         runUserQuery2 = yesNo(scanner, "bus stop");
                     }
                 break;
+                
                /**
                 * @feature: Part 3 - Let the user search for all trips with a given arrival time.
                 * @return: Full details of all trips matching the criteria sorted by Trip ID.

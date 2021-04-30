@@ -24,7 +24,7 @@ public class progressBar {
      * @param: The current value we are at, and the total value we must reach to be 100% completed.
      * @return: void.
      */
-    static void updateProgressBar(int currentValue, long totalValue)
+    protected static void updateProgressBar(int currentValue, long totalValue)
     {
         //The progress bar percentage
         double progressPercentage = (double)currentValue/(int)totalValue;
