@@ -12,19 +12,24 @@ import java.util.stream.*;
 
 public class stopName
 {
+	//Variables we need in order to initialize a stopName object.
     TST ourTST;
     String namesFile;
     
+    //Constructor for a stopName object.
     protected stopName(String filename) throws IOException
     {
-        ourTST = new TST(); // make our Ternary Search Tree
+    	//Make our Ternary Search Tree with the TST class.
+        ourTST = new TST();
         namesFile = filename;
-
-        int lineID = 2; // Start at the second line to ignore the definitions line in stops.txt
+        //Start at the second line to ignore the definitions line in stops.txt.
+        int lineID = 2;
         TST.allNames.clear();
         BufferedReader reader = new BufferedReader(new FileReader(filename));
-        reader.readLine(); //This will read the first line and skip it.
-        String thisLine; //Starting loop from 2nd line.
+        //This will read the first line and skip it.
+        reader.readLine();
+        //Now we are starting the loop from 2nd line.
+        String thisLine;
         while ((thisLine = reader.readLine()) != null)
         {
             String[] tokens = thisLine.split(",");
@@ -40,8 +45,10 @@ public class stopName
                 temp.add(s);
             }
             String stopNameFormatted = temp.toString();
-            stopNameFormatted = stopNameFormatted.replaceAll("\\p{P}", ""); //Remove all punctuation added by toString().
-            ourTST.put(stopNameFormatted, lineID); //Puts stop name into TST along with line number.
+            //Remove all punctuation added by toString().
+            stopNameFormatted = stopNameFormatted.replaceAll("\\p{P}", "");
+            //Puts stop name into TST along with line number.
+            ourTST.put(stopNameFormatted, lineID);
             lineID++;
         }
     }
